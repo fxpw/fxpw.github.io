@@ -430,7 +430,7 @@ h6 {
 #intro .button {
 	width: 45%;
 	margin-bottom: 20px;
-	border-radius: 4px;
+	border-radius: 15px;
 }
 
 #intro .button .fa-cloud-arrow-down,
@@ -676,7 +676,7 @@ h6 {
 	position: absolute;
 	width: 50px;
 	height: 50px;
-	border-radius: 4px;
+	border-radius: 15px;
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
@@ -687,7 +687,7 @@ h6 {
 	position: absolute;
 	width: 50px;
 	height: 50px;
-	border-radius: 4px;
+	border-radius: 15px;
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
@@ -1353,7 +1353,7 @@ footer .support ul li a:hover {
 	#intro .button {
 		width: 100%;
 		margin-bottom: 20px;
-		border-radius: 4px;
+		border-radius: 15px;
 	}
 
 	.intro-btns {
@@ -1513,14 +1513,14 @@ footer .support ul li a:hover {
 		position: relative;
 		width: 100px;
 		height: 100px;
-		border-radius: 4px;
+		border-radius: 15px;
 	}
 
 	#skills .container .div-card-item {
 		position: absolute;
 		width: 60px;
 		height: 60px;
-		border-radius: 4px;
+		border-radius: 15px;
 		top: 50%;
 		left: 50%;
 		background-position: center;
