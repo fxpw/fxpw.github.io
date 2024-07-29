@@ -900,7 +900,16 @@ const projectData = [
 		description:
 			"ChatGPT for VSCode is a revolutionary Visual Studio Code extension that will fundamentally transform how you interact with artificial intelligence during software development.",
 		techStack: ["JavaScript", "HTML", "CSS", "Node.js", "TypeScript"],
-		srcURL: "https://cut-link.netlify.app/",
+		srcURL: "https://github.com/fxpw/vscode-fxpw-ai-chat",
+	},
+	{
+		title: "vscode time tracker",
+		subTitle: "vscode extension for track activity",
+		thumbnail: "../assets/images/vscode.png",
+		description:
+			"Visual Studio Code extension that provide you info for your time activity",
+		techStack: ["JavaScript", "HTML", "CSS", "Node.js", "TypeScript"],
+		srcURL: "https://github.com/fxpw/vscode-fxpw-activity-tracker",
 	},
 	{
 		title: "Patch Creator",
