@@ -912,33 +912,67 @@ const projectData = [
 		srcURL: "https://github.com/fxpw/vscode-fxpw-activity-tracker",
 	},
 	{
-		title: "Patch Creator",
-		subTitle:
-			"MPQ DBC changer for Wow (12340)",
-		thumbnail: "../assets/icons/cplusplus-original.svg",
+		title: "js-node22-web-backend-template",
+		subTitle: "ready to use js web backend",
+		thumbnail: "../assets/icons/nodejs-original-wordmark.svg",
 		description:
-			"Dll for create or change DBC files from MPQ. Support all needed DBC's for change visual style",
-		techStack: ["C++"],
-		srcURL: "https://github.com/fxpw/PatchCreator",
+			"ready to use template",
+		techStack: ["JavaScript", "Node.js","Docker"],
+		srcURL: "https://github.com/fxpw/js-node22-web-backend-template",
 	},
 	{
-		title: "Patch Checker",
-		subTitle:
-			"Dll for check files using MD5",
-		thumbnail: "../assets/icons/cplusplus-original.svg",
+		title: "js-vuejs-web-frontend-template",
+		subTitle: "ready to use template",
+		thumbnail: "../assets/icons/nodejs-original-wordmark.svg",
 		description:
-			"Dll for check files using MD5",
-		techStack: ["C++"],
-		srcURL: "https://github.com/fxpw/PatchChecker",
+			"ready to use template",
+		techStack: ["JavaScript", "Node.js","Docker"],
+		srcURL: "https://github.com/fxpw/js-vuejs-web-frontend-template",
 	},
 	{
-		title: "Telegram GPT",
-		subTitle: "Run your openai chat into telegram",
+		title: "js-node22-react-web-frontend-template",
+		subTitle: "ready to use template",
+		thumbnail: "../assets/icons/nodejs-original-wordmark.svg",
+		description:
+			"ready to use template",
+		techStack: ["JavaScript", "Node.js","Docker"],
+		srcURL: "https://github.com/fxpw/js-node22-react-web-frontend-template",
+	},
+	{
+		title: "cpp20-cmake-vcpkg-template",
+		subTitle: "ready to use template",
 		thumbnail: "../assets/icons/cplusplus-original.svg",
 		description:
-			"Self hosted app for interact whit openai. Support proxy if you have troubles whit access to openai.com",
-		techStack: ["C++"],
-		srcURL: "https://github.com/fxpw/CPP_Telegram_GPT",
+			"ready to use template",
+		techStack: ["C++","Make","Docker"],
+		srcURL: "https://github.com/fxpw/cpp20-cmake-vcpkg-template",
+	},
+	{
+		title: "cpp20-cmake-vcpkg-web-backend-template",
+		subTitle: "ready to use template",
+		thumbnail: "../assets/icons/cplusplus-original.svg",
+		description:
+			"ready to use template",
+		techStack: ["C++","Make","Docker","MySQL"],
+		srcURL: "https://github.com/fxpw/cpp20-cmake-vcpkg-web-backend-template",
+	},
+	{
+		title: "lua54-web-backend-template",
+		subTitle: "ready to use template",
+		thumbnail: "../assets/icons/Lua.png",
+		description:
+			"ready to use template",
+		techStack: ["Lua","Docker","Make","MySQL"],
+		srcURL: "https://github.com/fxpw/lua54-web-backend-template",
+	},
+	{
+		title: "python312-web-backend-template",
+		subTitle: "ready to use template",
+		thumbnail: "../assets/icons/python-original.svg",
+		description:
+			"ready to use template",
+		techStack: ["Python","Docker","Make","MySQL"],
+		srcURL: "https://github.com/fxpw/python312-web-backend-template",
 	},
 ];
 
