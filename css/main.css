@@ -773,6 +773,9 @@ h6 {
 #skills .container .div-card .mysql {
 	background-image: url("../assets/icons/mysql-original-wordmark.svg");
 }
+#skills .container .div-card .memcached {
+	background-image: url("../assets/icons/memcached.svg");
+}
 #skills .container .div-card .redis {
 	background-image: url("../assets/icons/redis-original-wordmark.svg");
 }
