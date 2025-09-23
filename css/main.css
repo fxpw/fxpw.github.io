@@ -199,6 +199,14 @@ h6 {
 	cursor: pointer;
 	margin: 5px auto;
 }
+.navbar li .nav-link2 {
+	position: relative;
+	display: inline-block;
+	color: white;
+	padding: 0px 30px !important;
+	cursor: pointer;
+	margin: 5px auto;
+}
 
 .nav-card-item {
 	position: relative;
@@ -208,6 +216,10 @@ h6 {
 
 .navbar li .nav-link:hover {
 	color: #68d372;
+}
+
+.navbar li .nav-link2:hover {
+	color: #000000;
 }
 
 .navbar li .active {
@@ -349,6 +361,15 @@ h6 {
 }
 
 .navbar-collapse .nav-link {
+	font-size: 20px;
+	font-family: "Koulen";
+	letter-spacing: 1px;
+	color: #68d372 !important;
+	border: 2px solid #68d372;
+	border-radius: 20px;
+	box-shadow: 10px 10px 30px #1d1d1d50, -10px -10px 30px #27272750;
+}
+.navbar-collapse .nav-link2 {
 	font-size: 20px;
 	font-family: "Koulen";
 	letter-spacing: 1px;
@@ -1348,6 +1369,10 @@ footer .support ul li a:hover {
 		background-color: transparent;
 		width: 70%;
 	}
+	.navbar-collapse .nav-link2 {
+		background-color: transparent;
+		width: 70%;
+	}
 
 	#intro p {
 		margin-bottom: 20px;
@@ -1692,6 +1717,9 @@ footer .support ul li a:hover {
 	.navbar-collapse .nav-link {
 		border: none;
 	}
+	.navbar-collapse .nav-link2 {
+		border: none;
+	}
 
 	.navbar {
 		position: fixed;
@@ -1746,6 +1774,13 @@ footer .support ul li a:hover {
 		border-radius: 0px;
 		box-shadow: none;
 	}
+	.navbar-collapse .nav-link2 {
+		font-size: 18px;
+		color: white !important;
+		text-shadow: none;
+		border-radius: 0px;
+		box-shadow: none;
+	}
 
 	.navbar .nav-brand {
 		position: relative;
@@ -1765,9 +1800,19 @@ footer .support ul li a:hover {
 		padding: 15px 30px !important;
 		margin: 0px;
 	}
+	.navbar li .nav-link2 {
+		position: relative;
+		display: inline-block;
+		color: white;
+		padding: 15px 30px !important;
+		margin: 0px;
+	}
 
 	.navbar li .nav-link:hover {
 		color: #68d372 !important;
+	}
+	.navbar li .nav-link2:hover {
+		color: #000000 !important;
 	}
 
 	.js-scroll-trigger:hover {
