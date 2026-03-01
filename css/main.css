@@ -565,6 +565,8 @@ h6 {
 	mask-size: contain;
 	border-radius: 15px;
 	cursor: grab;
+	-webkit-mask-position: 40% 30%;
+    mask-position: 30% 30%;
 }
 
 #about {
@@ -794,8 +796,23 @@ h6 {
 #skills .container .div-card .mysql {
 	background-image: url("../assets/icons/mysql-original-wordmark.svg");
 }
+#skills .container .div-card .pgsql {
+	background-image: url("../assets/icons/pgsql.svg");
+}
 #skills .container .div-card .memcached {
 	background-image: url("../assets/icons/memcached.svg");
+}
+#skills .container .div-card .mariadb {
+	background-image: url("../assets/icons/mariadb.svg");
+}
+#skills .container .div-card .k8s {
+	background-image: url("../assets/icons/k8s.svg");
+}
+#skills .container .div-card .bs {
+	background-image: url("../assets/icons/bs.svg");
+}
+#skills .container .div-card .vite {
+	background-image: url("../assets/icons/vite.svg");
 }
 #skills .container .div-card .redis {
 	background-image: url("../assets/icons/redis-original-wordmark.svg");
@@ -1875,7 +1892,7 @@ footer .support ul li a:hover {
 		margin-bottom: 0px;
 		margin-top: 40px;
 		margin-left: 140px;
-		width: 60%;
+		width: 80%;
 	}
 
 	#intro h1 {
