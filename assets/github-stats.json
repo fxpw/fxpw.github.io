@@ -2,8 +2,10 @@
   "publicRepos": 227,
   "followers": 76,
   "following": 33,
-  "totalStars": 34,
-  "forks": 58,
+  "totalStars": 130,
+  "forks": 189,
+  "watchers": 145,
+  "releases": 321,
   "languages": [
     "C#",
     "C++",
@@ -23,5 +25,5 @@
   "commits": 2361,
   "pullRequests": 110,
   "publicGists": 6,
-  "updatedAt": "2026-11-21T20:04:16.116Z"
+  "updatedAt": "2026-11-21T20:12:29.576Z"
 }
