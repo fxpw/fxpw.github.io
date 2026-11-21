@@ -12,6 +12,11 @@
     .nav { position:fixed; z-index:30; top:16px; left:50%; transform:translateX(-50%); width:min(1040px,calc(100% - 32px)); height:64px; display:flex; align-items:center; justify-content:space-between; padding:8px; border:1px solid var(--line); border-radius:18px; background:color-mix(in srgb,var(--card) 88%,transparent); backdrop-filter:blur(18px); box-shadow:0 10px 30px var(--shadow) }
     .brand { height:48px; display:flex; align-items:center; padding:0 14px; border-radius:12px; background:var(--lime); color:#171916; font-weight:900; letter-spacing:-.04em }
     .navlinks { display:flex; gap:3px } .navlinks a { padding:10px 12px; border-radius:10px; color:var(--muted); text-decoration:none; font-size:.82rem } .navlinks a:hover { background:var(--line); color:var(--ink) }
+    .mobile-menu { display:none; position:relative }
+    .mobile-menu summary { width:48px; height:48px; display:grid; place-items:center; list-style:none; border:1px solid var(--line); border-radius:12px; background:var(--card); cursor:pointer }
+    .mobile-menu summary::-webkit-details-marker { display:none }
+    .mobile-menu nav { position:absolute; top:56px; right:0; width:min(230px,calc(100vw - 32px)); display:grid; gap:4px; padding:8px; border:1px solid var(--line); border-radius:16px; background:var(--card); box-shadow:0 16px 44px var(--shadow) }
+    .mobile-menu nav a { padding:10px 12px; border-radius:10px; color:var(--muted); text-decoration:none }
     .theme { width:48px; height:48px; border:1px solid var(--line); border-radius:12px; background:var(--card); color:var(--ink); cursor:pointer }
     .wrap { width:min(1040px,calc(100% - 40px)); margin:auto } section { padding:110px 0 }
     .hero { min-height:780px; display:flex; align-items:center; padding-top:130px } .hero-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:16px }
@@ -30,13 +35,13 @@
     .contact { min-height:430px; display:flex; flex-direction:column; justify-content:space-between; background:var(--ink); color:var(--bg); border:0 } .contact .section-label span { color:color-mix(in srgb,var(--bg) 60%,transparent) } .contact h2 { max-width:760px; margin:20px 0 0; font-size:clamp(4rem,9vw,7.8rem); line-height:.82; letter-spacing:-.08em } .contact-links { display:flex; gap:8px } .contact .button { border-color:color-mix(in srgb,var(--bg) 20%,transparent); background:transparent; color:var(--bg) } .contact .button.primary { background:var(--lime); color:#171916; border-color:var(--lime) }
     footer { display:flex; justify-content:space-between; padding:28px 0 40px; color:var(--muted); font-size:.78rem }
     [data-reveal] { opacity:0; transform:translateY(16px); transition:.7s } [data-reveal].visible { opacity:1; transform:none }
-    @media(max-width:900px) { .navlinks a:nth-child(n+4) { display:none } .hero-grid { grid-template-columns:1fr } .hero-photo { min-height:420px } .stats { grid-template-columns:repeat(2,1fr) } .about { grid-template-columns:1fr } .skills .skill,.skill.wide { grid-column:span 6 } .project,.project.featured { grid-column:span 12 } .path { grid-template-columns:1fr } }
+    @media(max-width:900px) { .navlinks { display:none } .mobile-menu { display:block } .hero-grid { grid-template-columns:1fr } .hero-photo { min-height:420px } .stats { grid-template-columns:repeat(2,1fr) } .about { grid-template-columns:1fr } .skills .skill,.skill.wide { grid-column:span 6 } .project,.project.featured { grid-column:span 12 } .path { grid-template-columns:1fr } }
     @media(max-width:560px) { .wrap { width:calc(100% - 28px) } section { padding:82px 0 } .nav { top:8px; width:calc(100% - 16px) } .navlinks a:not(:last-child) { display:none } h1 { font-size:4.2rem } .stats { grid-template-columns:1fr 1fr } .hero-copy { min-height:480px } .skills .skill,.skill.wide { grid-column:span 12 } .fact-grid { grid-template-columns:1fr } .section-label { align-items:flex-start } .section-label h2 { font-size:3.5rem } .contact h2 { font-size:4.2rem } }
   </style>
 </head>
 <body>
   <div id="app">
-    <nav class="nav"><a class="brand" href="#top">fxpw</a><div class="navlinks"><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a></div><button class="theme" @click="toggle" :aria-label="theme">{{theme==='dark'?'☀':'◐'}}</button></nav>
+    <nav class="nav"><a class="brand" href="#top">fxpw</a><div class="navlinks"><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a></div><details class="mobile-menu"><summary aria-label="Open navigation">≡</summary><nav><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a></nav></details><button class="theme" @click="toggle" :aria-label="theme">{{theme==='dark'?'☀':'◐'}}</button></nav>
     <main id="top">
       <section class="hero"><div class="wrap hero-grid">
         <div class="hero-copy" data-reveal><div><span class="status">Belarus · remote / worldwide</span><h1>Hi, I'm <span>Anton.</span></h1><p class="lede"><strong>Full Stack Developer / DevOps / AI Engineering</strong><br>5+ years building software across backend, infrastructure and AI workflows.</p></div><div class="actions"><a class="button primary" href="#work">View engineering work ↓</a><a class="button" href="assets/files/resume.pdf" download>Résumé ↓</a><a class="button" href="https://t.me/fx_pw" target="_blank">Telegram ↗</a></div></div>
