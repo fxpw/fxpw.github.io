@@ -268,8 +268,29 @@
         document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
         if(location.hash){requestAnimationFrame(()=>document.querySelector(location.hash)?.scrollIntoView({block:'start'}))}
         const updateProgress=()=>{
-          const max=document.documentElement.scrollHeight-window.innerHeight;
-          const value=max>0?(window.scrollY/max)*100:0;
+          const anchors=[
+            document.querySelector('#top'),
+            document.querySelector('#about'),
+            document.querySelector('#skills'),
+            document.querySelector('#evidence'),
+            document.querySelector('#work'),
+            document.querySelector('#path'),
+            document.querySelector('#contact')
+          ].filter(Boolean).map(el=>el.offsetTop);
+          const y=window.scrollY+96;
+          let value=0;
+          if(y<=anchors[0]){
+            value=0;
+          }else if(y>=anchors.at(-1)){
+            value=100;
+          }else{
+            let index=anchors.length-2;
+            for(let i=0;i<anchors.length-1;i++){
+              if(y>=anchors[i]&&y<anchors[i+1]){index=i;break;}
+            }
+            const ratio=Math.max(0,Math.min(1,(y-anchors[index])/(anchors[index+1]-anchors[index])));
+            value=(index+ratio)/(anchors.length-1)*100;
+          }
           document.getElementById('scrollProgress').style.width=value+'%';
           const nav=document.querySelector('.nav');
           if(!nav)return;
