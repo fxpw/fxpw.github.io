@@ -47,8 +47,10 @@ try {
 
 let privateContributions = 0;
 let yearlyContributions = 0;
+let currentStreak = 0;
+let longestStreak = 0;
 if (token) {
-  const query = `query($login:String!){user(login:$login){contributionsCollection{totalCommitContributions restrictedContributionsCount totalPullRequestContributions totalIssueContributions totalRepositoriesWithContributedCommits}}}`;
+  const query = `query($login:String!){user(login:$login){contributionsCollection{totalCommitContributions restrictedContributionsCount totalPullRequestContributions totalIssueContributions totalRepositoriesWithContributedCommits contributionCalendar{weeks{contributionDays{contributionCount,date}}}}}}`;
   const response = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: { ...headers, 'Content-Type': 'application/json' },
@@ -63,13 +65,26 @@ if (token) {
         (contributions.totalCommitContributions || 0) +
         (contributions.totalPullRequestContributions || 0) +
         (contributions.totalIssueContributions || 0);
+      const days=(contributions.contributionCalendar?.weeks||[]).flatMap(week=>week.contributionDays||[]);
+      let running=0;
+      longestStreak=0;
+      for(const day of days){
+        if(day.contributionCount>0){running++;longestStreak=Math.max(longestStreak,running)}else{running=0}
+      }
+      currentStreak=0;
+      for(let i=days.length-1;i>=0;i--){
+        if(days[i].contributionCount>0)currentStreak++;else{
+          if(i===days.length-1)continue;
+          break;
+        }
+      }
     }
   }
 }
 
 const data = {
   publicRepos: user.public_repos,
-  privateRepos,
+  totalRepos: user.public_repos + privateRepos,
   followers: user.followers,
   following: user.following,
   totalStars: Math.max(totalStars, 130),
@@ -81,9 +96,14 @@ const data = {
   commits,
   pullRequests,
   issues,
-  publicGists: user.public_gists,
-  privateContributions,
   yearlyContributions,
+  currentStreak,
+  longestStreak,
+  averageCommitsPerDay: (() => {
+    const created = Date.parse(user.created_at);
+    const days = Math.max(1, Math.ceil((Date.now() - created) / 864e5));
+    return Number((commits / days).toFixed(1));
+  })(),
   updatedAt: new Date().toISOString()
 };
 
