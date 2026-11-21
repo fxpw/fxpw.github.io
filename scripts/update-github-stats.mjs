@@ -22,6 +22,20 @@ const activeRepos = owned.filter(repo =>
   repo.pushed_at && Date.now() - Date.parse(repo.pushed_at) < 365 * 864e5
 ).length;
 
+let commits = 0;
+let pullRequests = 0;
+try {
+  const [commitResponse, pullRequestResponse] = await Promise.all([
+    fetch('https://api.github.com/search/commits?q=author%3Afxpw&per_page=1', { headers }),
+    fetch('https://api.github.com/search/issues?q=author%3Afxpw+is%3Apr&per_page=1', { headers })
+  ]);
+  if (commitResponse.ok) commits = (await commitResponse.json()).total_count || 0;
+  if (pullRequestResponse.ok) pullRequests = (await pullRequestResponse.json()).total_count || 0;
+} catch {
+  commits = 0;
+  pullRequests = 0;
+}
+
 const data = {
   publicRepos: user.public_repos,
   followers: user.followers,
@@ -30,6 +44,9 @@ const data = {
   forks,
   languages,
   activeRepos,
+  commits,
+  pullRequests,
+  publicGists: user.public_gists,
   updatedAt: new Date().toISOString()
 };
 
