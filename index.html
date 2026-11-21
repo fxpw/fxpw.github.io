@@ -25,6 +25,16 @@
     .wrap { width:min(1120px, calc(100% - 40px)); margin:auto }
     .nav { position:fixed; z-index:30; top:18px; left:50%; transform:translateX(-50%); width:min(760px,calc(100% - 28px)); height:58px; display:flex; align-items:center; justify-content:space-between; padding:7px 8px 7px 18px; border:1px solid var(--line); border-radius:18px; background:var(--surface); backdrop-filter:blur(24px) saturate(180%); box-shadow:0 12px 40px var(--shadow); overflow:hidden; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif }
     .nav > :not(.scroll-progress) { position:relative; z-index:2 }
+    .nav .links a,
+    .nav .brand,
+    .nav .icon-btn,
+    .nav .mobile-menu { transition:color .08s linear }
+    .nav .links a.progress-dark,
+    .nav .brand.progress-dark,
+    .nav .icon-btn.progress-dark,
+    .nav .mobile-menu.summary.progress-dark,
+    .nav .mobile-menu summary.progress-dark { color:#111318 }
+    .nav .brand.progress-dark i { color:#111318 }
     .scroll-progress { position:absolute; z-index:1; inset:0 auto 0 0; width:100%; height:100%; pointer-events:none; background:transparent }
     .scroll-progress i { display:block; position:relative; width:0; height:100%; background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent) 42%,transparent)); box-shadow:8px 0 24px color-mix(in srgb,var(--accent) 26%,transparent); transition:width .08s linear }
     .scroll-progress i:before { content:""; position:absolute; inset:0 0 auto 0; height:2px; background:var(--accent); box-shadow:0 0 10px var(--accent) }
@@ -147,8 +157,8 @@
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><strong>{{ stats.pullRequests || '110+' }}</strong></div><span>pull requests</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.5"/></svg><strong>{{ stats.issues || '27+' }}</strong></div><span>issues authored</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 5h14v12H9l-4 3V5zM8 9h8M8 13h5"/></svg><strong>{{ stats.publicGists || '6+' }}</strong></div><span>public gists</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/></svg><strong>{{ stats.languages?.length || '13+' }}</strong></div><span>languages</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 11a4 4 0 108 0 4 4 0 00-8 0zM3 21a7 7 0 0118 0M17 8a3 3 0 010 6"/></svg><strong>{{ stats.following || '33+' }}</strong></div><span>following</span></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 9h8M8 13h5"/></svg><strong>{{ stats.privateRepos ?? '—' }}</strong></div><span>private repos</span></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M8 12h8"/></svg><strong>{{ stats.privateContributions || '—' }}</strong></div><span>private contributions</span></div>
         </div>
       </div>
       <section id="about"><div class="wrap">
@@ -245,7 +255,39 @@
   </div>
   <script>
     const {createApp}=Vue;
-    createApp({data(){return{theme:localStorage.getItem('theme')||matchMedia('(prefers-color-scheme:light)').matches?'light':'dark',stats:{},year:new Date().getFullYear()}},mounted(){document.documentElement.className=this.theme;fetch('assets/github-stats.json').then(r=>r.ok?r.json():{}).then(data=>{this.stats=data}).catch(()=>{});const io=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.12});document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));if(location.hash){requestAnimationFrame(()=>document.querySelector(location.hash)?.scrollIntoView({block:'start'}))}const updateProgress=()=>{const max=document.documentElement.scrollHeight-window.innerHeight;const value=max>0?(window.scrollY/max)*100:0;document.getElementById('scrollProgress').style.width=value+'%'};updateProgress();addEventListener('scroll',updateProgress,{passive:true});addEventListener('resize',updateProgress)},methods:{toggleTheme(){this.theme=this.theme==='dark'?'light':'dark';localStorage.setItem('theme',this.theme);document.documentElement.className=this.theme}}}).mount('#app');
+    createApp({
+      data(){return{theme:localStorage.getItem('theme')||'dark',stats:{},year:new Date().getFullYear()}},
+      mounted(){
+        document.documentElement.className=this.theme;
+        fetch('assets/github-stats.json').then(r=>r.ok?r.json():{}).then(data=>{this.stats=data}).catch(()=>{});
+        const io=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.12});
+        document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+        if(location.hash){requestAnimationFrame(()=>document.querySelector(location.hash)?.scrollIntoView({block:'start'}))}
+        const updateProgress=()=>{
+          const max=document.documentElement.scrollHeight-window.innerHeight;
+          const value=max>0?(window.scrollY/max)*100:0;
+          document.getElementById('scrollProgress').style.width=value+'%';
+          const nav=document.querySelector('.nav');
+          if(!nav)return;
+          const fill=nav.getBoundingClientRect().width*value/100;
+          nav.querySelectorAll('.brand,.links a,.icon-btn,.mobile-menu summary').forEach(el=>{
+            const rect=el.getBoundingClientRect();
+            const navLeft=nav.getBoundingClientRect().left;
+            el.classList.toggle('progress-dark',rect.left-navLeft+rect.width/2<=fill);
+          });
+        };
+        updateProgress();
+        addEventListener('scroll',updateProgress,{passive:true});
+        addEventListener('resize',updateProgress);
+      },
+      methods:{
+        toggleTheme(){
+          this.theme=this.theme==='dark'?'light':'dark';
+          localStorage.setItem('theme',this.theme);
+          document.documentElement.className=this.theme;
+        }
+      }
+    }).mount('#app');
   </script>
 </body>
 </html>

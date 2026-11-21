@@ -1,5 +1,6 @@
 {
   "publicRepos": 227,
+  "privateRepos": 0,
   "followers": 76,
   "following": 33,
   "totalStars": 130,
@@ -24,6 +25,9 @@
   "activeRepos": 13,
   "commits": 2361,
   "pullRequests": 110,
+  "issues": 27,
   "publicGists": 6,
-  "updatedAt": "2026-11-21T20:12:29.576Z"
+  "privateContributions": 0,
+  "yearlyContributions": 0,
+  "updatedAt": "2026-11-21T20:33:10.686Z"
 }
