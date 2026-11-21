@@ -23,6 +23,11 @@
     .brand { font-weight:760; letter-spacing:-.02em }
     .brand i { color:var(--accent); font-style:normal }
     .links { display:flex; gap:4px; align-items:center }
+    .mobile-menu { display:none; position:relative }
+    .mobile-menu summary { width:42px; height:42px; display:grid; place-items:center; list-style:none; border:1px solid var(--line); border-radius:13px; background:var(--surface2); cursor:pointer }
+    .mobile-menu summary::-webkit-details-marker { display:none }
+    .mobile-menu nav { position:absolute; top:50px; right:0; width:min(230px,calc(100vw - 28px)); display:grid; gap:4px; padding:8px; border:1px solid var(--line); border-radius:16px; background:var(--surface); backdrop-filter:blur(24px); box-shadow:0 16px 44px var(--shadow) }
+    .mobile-menu nav a { padding:10px 12px; border-radius:10px; color:var(--muted); font-size:.86rem }
     .links a { padding:9px 11px; color:var(--muted); font-size:.86rem; border-radius:11px }
     .links a:hover { color:var(--text); background:var(--surface2) }
     .icon-btn { width:42px; height:42px; display:grid; place-items:center; border:1px solid var(--line); border-radius:13px; background:var(--surface2); color:var(--text); cursor:pointer }
@@ -74,7 +79,7 @@
     .contact-links { display:flex; justify-content:center; gap:8px; flex-wrap:wrap }
     footer { display:flex; justify-content:space-between; align-items:center; padding:34px 0 40px; color:var(--muted); font-size:.82rem }
     [data-reveal] { opacity:0; transform:translateY(18px); transition:.7s ease } [data-reveal].visible { opacity:1; transform:none }
-    @media(max-width:900px) { .hero-grid,.about-grid { grid-template-columns:1fr } .portrait { width:min(330px,85%); margin-top:20px } .stats { grid-template-columns:repeat(2,1fr) } .stat { border-bottom:1px solid var(--line) } .skills { grid-template-columns:repeat(2,1fr) } .project,.project.featured { grid-column:span 12 } .links a { display:none } }
+    @media(max-width:900px) { .hero-grid,.about-grid { grid-template-columns:1fr } .portrait { width:min(330px,85%); margin-top:20px } .stats { grid-template-columns:repeat(2,1fr) } .stat { border-bottom:1px solid var(--line) } .skills { grid-template-columns:repeat(2,1fr) } .project,.project.featured { grid-column:span 12 } .links a { display:none } .mobile-menu { display:block } }
     @media(max-width:560px) { .wrap { width:min(100% - 28px,1120px) } section { padding:82px 0 } .hero { min-height:auto } h1 { font-size:4.2rem } .section-head { display:block } .section-head p { margin-top:14px } .skills { grid-template-columns:1fr } .skill.ai { grid-column:auto } .job { grid-template-columns:1fr } .stats { grid-template-columns:1fr 1fr } .stat { padding:14px } .nav { top:10px } footer { align-items:flex-start; gap:12px } }
     @media(prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; transition:none!important } }
   </style>
@@ -86,6 +91,7 @@
       <div class="links">
         <a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a>
       </div>
+      <details class="mobile-menu"><summary aria-label="Open navigation">≡</summary><nav><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a></nav></details>
       <button class="icon-btn" @click="toggleTheme" :aria-label="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'">{{ theme === 'dark' ? '☀' : '☾' }}</button>
     </nav>
     <main id="top">
