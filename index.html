@@ -32,6 +32,7 @@
     .mobile-menu { display:none; position:relative }
     .mobile-menu summary { width:42px; height:42px; display:grid; place-items:center; list-style:none; border:1px solid var(--line); border-radius:13px; background:var(--surface2); cursor:pointer }
     .mobile-menu summary::-webkit-details-marker { display:none }
+    .mobile-menu summary svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round }
     .mobile-menu nav { position:absolute; top:50px; right:0; width:min(230px,calc(100vw - 28px)); display:grid; gap:4px; padding:8px; border:1px solid var(--line); border-radius:16px; background:var(--surface); backdrop-filter:blur(24px); box-shadow:0 16px 44px var(--shadow) }
     .mobile-menu nav a { padding:10px 12px; border-radius:10px; color:var(--muted); font-size:.86rem }
     .links a { padding:9px 11px; color:var(--muted); font-size:.86rem; border-radius:11px }
@@ -68,10 +69,10 @@
     .about-card { padding:28px } .about-card p { color:var(--muted); margin:0 0 16px }
     .facts { display:grid; grid-template-columns:1fr 1fr; gap:10px }
     .fact { padding:18px; border-radius:18px; background:var(--surface2) } .fact strong { display:block; font-size:1.1rem } .fact span { color:var(--muted); font-size:.85rem }
-    .fact-head { display:flex; align-items:center; gap:10px } .fact-head img { width:28px; height:28px; object-fit:contain }
+    .fact-head { display:flex; align-items:center; gap:10px } .fact-head img { width:30px; height:30px; object-fit:contain; padding:5px; border:1px solid var(--line); border-radius:9px; background:var(--surface); filter:grayscale(1) contrast(.85); opacity:.78 }
     .skills { display:grid; grid-template-columns:repeat(4,1fr); gap:10px }
     .skill { min-height:140px; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; transition:.25s transform,.25s border-color }
-    .skill-icons { display:flex; gap:8px; align-items:center; margin:0 0 auto } .skill-icons img { width:34px; height:34px; object-fit:contain }
+    .skill-icons { display:flex; gap:8px; align-items:center; margin:0 0 auto } .skill-icons img { width:38px; height:38px; padding:7px; object-fit:contain; border:1px solid var(--line); border-radius:11px; background:var(--surface); filter:grayscale(1) contrast(.82); opacity:.82 }
     .skill:hover { transform:translateY(-5px); border-color:color-mix(in srgb,var(--accent) 48%,var(--line)) }
     .skill b { font-size:1.05rem } .skill span { color:var(--muted); font-size:.78rem }
     .skill.ai { grid-column:span 2; background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,var(--surface)),var(--surface)) }
@@ -89,8 +90,9 @@
     .contact h2 { margin:10px auto 18px; max-width:720px; font-size:clamp(2.6rem,7vw,5.8rem); line-height:.95; letter-spacing:-.07em }
     .contact-links { display:flex; justify-content:center; gap:10px; flex-wrap:wrap }
     .contact .button { gap:9px; min-height:52px; padding:0 20px }
-    .contact .button img { width:22px; height:22px; object-fit:contain }
-    .contact .button:not(.primary) img { filter:brightness(0) invert(1) }
+    .contact .button img { width:20px; height:20px; object-fit:contain; padding:3px; border:1px solid currentColor; border-radius:7px; filter:grayscale(1) }
+    .contact .button.primary img { filter:brightness(0) }
+    .contact .button:not(.primary) img { filter:grayscale(1) brightness(0) invert(1) }
     footer { display:flex; justify-content:space-between; align-items:center; padding:34px 0 40px; color:var(--muted); font-size:.82rem }
     [data-reveal] { opacity:0; transform:translateY(18px); transition:.7s ease } [data-reveal].visible { opacity:1; transform:none }
     @media(max-width:900px) { .hero-grid,.about-grid { grid-template-columns:1fr } .portrait { width:min(330px,85%); margin-top:20px } .stats { grid-template-columns:repeat(2,1fr) } .stat { border-bottom:1px solid var(--line) } .skills { grid-template-columns:repeat(2,1fr) } .project,.project.featured { grid-column:span 12 } .links a { display:none } .mobile-menu { display:block } }
@@ -106,7 +108,7 @@
       <div class="links">
         <a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a>
       </div>
-      <details class="mobile-menu"><summary aria-label="Open navigation">≡</summary><nav><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a></nav></details>
+      <details class="mobile-menu"><summary aria-label="Open navigation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary><nav><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a></nav></details>
       <button class="icon-btn" @click="toggleTheme" :aria-label="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'">
         <svg v-if="theme === 'dark'" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
         <svg v-else viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.2A8.5 8.5 0 018.8 3.8 8.5 8.5 0 1020.2 15.2z"/></svg>
