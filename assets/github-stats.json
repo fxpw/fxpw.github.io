@@ -1,1 +1,24 @@
-{"publicRepos":227,"followers":76,"following":33,"totalStars":0,"forks":0,"languages":[],"updatedAt":"2026-11-21T21:35:08+03:00"}
+{
+  "publicRepos": 227,
+  "followers": 76,
+  "following": 33,
+  "totalStars": 34,
+  "forks": 58,
+  "languages": [
+    "C#",
+    "C++",
+    "Dockerfile",
+    "JavaScript",
+    "Jupyter Notebook",
+    "Lua",
+    "Makefile",
+    "PHP",
+    "Python",
+    "SCSS",
+    "Shell",
+    "TypeScript",
+    "Vue"
+  ],
+  "activeRepos": 13,
+  "updatedAt": "2026-11-21T19:03:10.930Z"
+}
