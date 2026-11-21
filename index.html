@@ -24,8 +24,9 @@
     button { font:inherit }
     .wrap { width:min(1120px, calc(100% - 40px)); margin:auto }
     .nav { position:fixed; z-index:30; top:18px; left:50%; transform:translateX(-50%); width:min(760px,calc(100% - 28px)); height:58px; display:flex; align-items:center; justify-content:space-between; padding:7px 8px 7px 18px; border:1px solid var(--line); border-radius:18px; background:var(--surface); backdrop-filter:blur(24px) saturate(180%); box-shadow:0 12px 40px var(--shadow) }
-    .scroll-progress { position:fixed; z-index:31; top:0; left:0; width:100%; height:3px; pointer-events:none }
-    .scroll-progress i { display:block; width:0; height:100%; background:var(--accent); box-shadow:0 0 14px color-mix(in srgb,var(--accent) 70%,transparent) }
+    .scroll-progress { position:absolute; z-index:31; left:18px; right:18px; bottom:-1px; height:4px; border-radius:0 0 20px 20px; overflow:hidden; background:color-mix(in srgb,var(--line) 75%,transparent); pointer-events:none }
+    .scroll-progress i { display:block; position:relative; width:0; height:100%; background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--accent2))); box-shadow:0 0 12px var(--accent) }
+    .scroll-progress i:after { content:""; position:absolute; right:-5px; top:-3px; width:10px; height:10px; border:2px solid var(--accent); border-radius:50%; background:var(--bg); box-shadow:0 0 16px var(--accent) }
     .brand { font-weight:760; letter-spacing:-.02em }
     .brand i { color:var(--accent); font-style:normal }
     .links { display:flex; gap:4px; align-items:center }
@@ -69,10 +70,13 @@
     .about-card { padding:28px } .about-card p { color:var(--muted); margin:0 0 16px }
     .facts { display:grid; grid-template-columns:1fr 1fr; gap:10px }
     .fact { padding:18px; border-radius:18px; background:var(--surface2) } .fact strong { display:block; font-size:1.1rem } .fact span { color:var(--muted); font-size:.85rem }
-    .fact-head { display:flex; align-items:center; gap:10px } .fact-head img { width:30px; height:30px; object-fit:contain; padding:5px; border:1px solid var(--line); border-radius:9px; background:var(--surface); filter:grayscale(1) contrast(.85); opacity:.78 }
+    .fact-head { display:flex; align-items:center; gap:10px }
+    .tech-icon { display:grid; place-items:center; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--accent); box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--line) 35%,transparent) } .tech-icon svg { fill:none; stroke:currentColor; stroke-width:1.55; stroke-linecap:round; stroke-linejoin:round }
+    .fact-head .tech-icon { width:30px; height:30px; flex-basis:30px; border-radius:9px }
+    .fact-head .tech-icon svg { width:18px; height:18px }
     .skills { display:grid; grid-template-columns:repeat(4,1fr); gap:10px }
     .skill { min-height:140px; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; transition:.25s transform,.25s border-color }
-    .skill-icons { display:flex; gap:8px; align-items:center; margin:0 0 auto } .skill-icons img { width:38px; height:38px; padding:7px; object-fit:contain; border:1px solid var(--line); border-radius:11px; background:var(--surface); filter:grayscale(1) contrast(.82); opacity:.82 }
+    .skill-icons { display:flex; gap:8px; align-items:center; margin:0 0 auto } .skill-icons .tech-icon { width:38px; height:38px; display:grid; place-items:center; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--accent); box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--line) 35%,transparent) } .skill-icons .tech-icon svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.55; stroke-linecap:round; stroke-linejoin:round }
     .skill:hover { transform:translateY(-5px); border-color:color-mix(in srgb,var(--accent) 48%,var(--line)) }
     .skill b { font-size:1.05rem } .skill span { color:var(--muted); font-size:.78rem }
     .skill.ai { grid-column:span 2; background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,var(--surface)),var(--surface)) }
@@ -90,7 +94,7 @@
     .contact h2 { margin:10px auto 18px; max-width:720px; font-size:clamp(2.6rem,7vw,5.8rem); line-height:.95; letter-spacing:-.07em }
     .contact-links { display:flex; justify-content:center; gap:10px; flex-wrap:wrap }
     .contact .button { gap:9px; min-height:52px; padding:0 20px }
-    .contact .button img { width:20px; height:20px; object-fit:contain; padding:3px; border:1px solid currentColor; border-radius:7px; filter:grayscale(1) }
+    .contact-icon { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round }
     .contact .button.primary img { filter:brightness(0) }
     .contact .button:not(.primary) img { filter:grayscale(1) brightness(0) invert(1) }
     footer { display:flex; justify-content:space-between; align-items:center; padding:34px 0 40px; color:var(--muted); font-size:.82rem }
@@ -102,7 +106,6 @@
 </head>
 <body>
   <div id="app">
-    <div class="scroll-progress" aria-hidden="true"><i id="scrollProgress"></i></div>
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="#top">fxpw<i>.</i></a>
       <div class="links">
@@ -113,6 +116,7 @@
         <svg v-if="theme === 'dark'" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
         <svg v-else viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.2A8.5 8.5 0 018.8 3.8 8.5 8.5 0 1020.2 15.2z"/></svg>
       </button>
+      <div class="scroll-progress" aria-hidden="true"><i id="scrollProgress"></i></div>
     </nav>
     <main id="top">
       <section class="hero">
@@ -144,19 +148,48 @@
       <section id="about"><div class="wrap">
         <div class="section-head"><div><div class="kicker">01 · About</div><h2>Useful software.<br>Cleanly engineered.</h2></div><p>I like systems that explain themselves, scale without drama and solve a real problem. From product UI to servers, databases and AI tooling.</p></div>
         <div class="about-grid">
-          <div class="glass about-card facts"><div class="fact"><div class="fact-head"><img src="assets/icons/dev-experience.svg" alt=""><strong>5+ years</strong></div><span>software engineering</span></div><div class="fact"><div class="fact-head"><img src="assets/icons/projects-icon.svg" alt=""><strong>Full stack</strong></div><span>product to infrastructure</span></div><div class="fact"><div class="fact-head"><img src="assets/icons/nodejs-original-wordmark.svg" alt=""><strong>AI native</strong></div><span>tooling and integration</span></div><div class="fact"><div class="fact-head"><img src="assets/icons/manga.svg" alt=""><strong>Manga</strong></div><span>reading & collecting</span></div></div>
+          <div class="glass about-card facts">
+            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2M5 12l-2 2M19 12l2 2"/></svg></span><strong>5+ years</strong></div><span>software engineering</span></div>
+            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 8h8M8 12h5M8 16h7"/></svg></span><strong>Full stack</strong></div><span>product to infrastructure</span></div>
+            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></span><strong>AI native</strong></div><span>tooling and integration</span></div>
+            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM8 9h8M8 13h5M8 17h7"/></svg></span><strong>Manga</strong></div><span>reading & collecting</span></div>
+          </div>
           <div class="glass about-card"><p>I work where engineering, operations and product meet. My strongest range is backend systems, DevOps, desktop tooling, data-heavy products and automation.</p><p>I also use AI as part of the engineering workflow: MCP integrations, LLM backends, code agents, prompt systems and local/private model infrastructure.</p></div>
         </div>
       </div></section>
       <section id="skills"><div class="wrap">
         <div class="section-head"><div><div class="kicker">02 · Stack</div><h2>Tools, grouped<br>by responsibility.</h2></div><p>A capability map rather than a list of logo cards.</p></div>
         <div class="skills">
-          <div class="glass skill ai"><div class="skill-icons"><img src="assets/icons/python-original.svg" alt=""><img src="assets/icons/nodejs-original-wordmark.svg" alt=""><img src="assets/icons/docker.png" alt=""></div><b>AI engineering</b><span>LLMs · MCP · RAG · agents · local/private models · prompt systems</span></div>
-          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/vite.svg" alt=""><img src="assets/icons/typescript.png" alt=""><img src="assets/icons/html-5.png" alt=""></div><b>Product</b><span>Vue · TypeScript · JavaScript · HTML/CSS</span></div>
-          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/python-original.svg" alt=""><img src="assets/icons/php-original.svg" alt=""><img src="assets/icons/cplusplus-original.svg" alt=""></div><b>Backend</b><span>Python · PHP · Node.js · C++ · Lua</span></div>
-          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/linux-original.svg" alt=""><img src="assets/icons/docker.png" alt=""><img src="assets/icons/k8s.svg" alt=""></div><b>Infrastructure</b><span>Linux · Docker · Kubernetes · Nginx · Bash · GitHub Actions</span></div>
-          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/postgresql-original-wordmark.svg" alt=""><img src="assets/icons/mysql-original-wordmark.svg" alt=""><img src="assets/icons/redis-original-wordmark.svg" alt=""></div><b>Data</b><span>PostgreSQL · MySQL · MariaDB · Redis · Memcached</span></div>
-          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/git-scm-icon.svg" alt=""><img src="assets/icons/cicd.png" alt=""><img src="assets/icons/bash.svg" alt=""></div><b>Workflow</b><span>Git · DevOps · CI/CD · automation · observability</span></div>
+          <div class="glass skill ai"><div class="skill-icons">
+            <span class="tech-icon" aria-label="AI"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg></span>
+            <span class="tech-icon" aria-label="Docker"><svg viewBox="0 0 24 24"><path d="M3 13h16c0 4-3 7-7 7H8c-3 0-5-2-5-5zM6 10V8M9 10V7M12 10V6M15 10V8M18 10h3l-1 3"/></svg></span>
+            <span class="tech-icon" aria-label="Language"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h5M8 16h7"/></svg></span>
+          </div><b>AI engineering</b><span>LLMs · MCP · RAG · agents · local/private models · prompt systems</span></div>
+          <div class="glass skill"><div class="skill-icons">
+            <span class="tech-icon" aria-label="Vue"><svg viewBox="0 0 24 24"><path d="M3 5h4l5 9 5-9h4l-9 15L3 5z"/></svg></span>
+            <span class="tech-icon" aria-label="TypeScript"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 10h8M12 10v7M16 10l-1.5 2"/></svg></span>
+            <span class="tech-icon" aria-label="Web"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9l-2 3 2 3M16 9l2 3-2 3M14 8l-4 8"/></svg></span>
+          </div><b>Product</b><span>Vue · TypeScript · JavaScript · HTML/CSS</span></div>
+          <div class="glass skill"><div class="skill-icons">
+            <span class="tech-icon" aria-label="Python"><svg viewBox="0 0 24 24"><path d="M12 3H8a3 3 0 00-3 3v3h7v2H5v4a3 3 0 003 3h4M12 21h4a3 3 0 003-3v-3h-7v-2h7V9a3 3 0 00-3-3h-4"/><circle cx="8" cy="7" r=".7"/><circle cx="16" cy="17" r=".7"/></svg></span>
+            <span class="tech-icon" aria-label="PHP"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><path d="M6 9l-2 6M18 9l2 6M9 9l-1 6M15 9l1 6M10 12h4"/></svg></span>
+            <span class="tech-icon" aria-label="C++"><svg viewBox="0 0 24 24"><circle cx="10" cy="12" r="6"/><path d="M16 9h5M16 15h5M18.5 6.5v5M18.5 13.5v5"/></svg></span>
+          </div><b>Backend</b><span>Python · PHP · Node.js · C++ · Lua</span></div>
+          <div class="glass skill"><div class="skill-icons">
+            <span class="tech-icon" aria-label="Linux"><svg viewBox="0 0 24 24"><path d="M8 18c-2 0-3 1-3 2h14c0-1-1-2-3-2M9 18V9a3 3 0 016 0v9M9 12l-3 2M15 12l3 2"/><circle cx="10" cy="8" r=".5"/><circle cx="14" cy="8" r=".5"/></svg></span>
+            <span class="tech-icon" aria-label="Containers"><svg viewBox="0 0 24 24"><path d="M3 14h18c0 4-3 6-6 6H9c-4 0-6-2-6-6zM6 11V8M9 11V7M12 11V6M15 11V8M18 11h3"/></svg></span>
+            <span class="tech-icon" aria-label="Kubernetes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v6M12 14v6M4 12h6M14 12h6M6.3 6.3l4.2 4.2M13.5 13.5l4.2 4.2M17.7 6.3l-4.2 4.2M10.5 13.5l-4.2 4.2"/></svg></span>
+          </div><b>Infrastructure</b><span>Linux · Docker · Kubernetes · Nginx · Bash · GitHub Actions</span></div>
+          <div class="glass skill"><div class="skill-icons">
+            <span class="tech-icon" aria-label="Database"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 2 3 3 7 3s7-1 7-3V6M5 12v6c0 2 3 3 7 3s7-1 7-3v-6"/></svg></span>
+            <span class="tech-icon" aria-label="SQL"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 9h10M7 13h6M7 17h8"/></svg></span>
+            <span class="tech-icon" aria-label="Cache"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2M7 5l2 3M17 5l-2 3"/></svg></span>
+          </div><b>Data</b><span>PostgreSQL · MySQL · MariaDB · Redis · Memcached</span></div>
+          <div class="glass skill"><div class="skill-icons">
+            <span class="tech-icon" aria-label="Git"><svg viewBox="0 0 24 24"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="12" cy="12" r="2"/><path d="M7 15V9a2 2 0 012-2h6M12 14l3-5"/></svg></span>
+            <span class="tech-icon" aria-label="CI CD"><svg viewBox="0 0 24 24"><path d="M4 12h5l2-5 3 10 2-5h4"/></svg></span>
+            <span class="tech-icon" aria-label="Terminal"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 9l3 3-3 3M12 15h5"/></svg></span>
+          </div><b>Workflow</b><span>Git · DevOps · CI/CD · automation · observability</span></div>
         </div>
       </div></section>
       <section id="evidence"><div class="wrap">
@@ -196,9 +229,9 @@
         <div class="kicker">05 · Contact</div>
         <h2>Let's build something useful.</h2>
         <div class="contact-links">
-          <a class="button primary" href="https://t.me/fx_pw" target="_blank" rel="noreferrer"><img src="assets/icons/telegram.svg" alt="">Telegram</a>
-          <a class="button" href="https://github.com/fxpw" target="_blank" rel="noreferrer"><img src="assets/icons/github.png" alt="">GitHub</a>
-          <a class="button" href="https://discord.com/fxpw" target="_blank" rel="noreferrer"><img src="assets/icons/dis.svg" alt="">Discord</a>
+          <a class="button primary" href="https://t.me/fx_pw" target="_blank" rel="noreferrer"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 4 3 3-14zM9 13l8-6"/></svg>Telegram</a>
+          <a class="button" href="https://github.com/fxpw" target="_blank" rel="noreferrer"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="12" cy="12" r="2"/><path d="M7 15V9a2 2 0 012-2h6M12 14l3-5"/></svg>GitHub</a>
+          <a class="button" href="https://discord.com/fxpw" target="_blank" rel="noreferrer"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7c3-2 7-2 10 0l2 10c-3 2-5 2-7 1l-1-2M5 17l2-10M8 12h8M9 15l1 1M15 15l-1 1"/></svg>Discord</a>
         </div>
       </div></div></section>
     </main>
