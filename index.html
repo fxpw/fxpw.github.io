@@ -61,6 +61,7 @@
     .fact { padding:18px; border-radius:18px; background:var(--surface2) } .fact strong { display:block; font-size:1.1rem } .fact span { color:var(--muted); font-size:.85rem }
     .skills { display:grid; grid-template-columns:repeat(4,1fr); gap:10px }
     .skill { min-height:140px; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; transition:.25s transform,.25s border-color }
+    .skill-icons { display:flex; gap:8px; align-items:center; margin:0 0 auto } .skill-icons img { width:34px; height:34px; object-fit:contain }
     .skill:hover { transform:translateY(-5px); border-color:color-mix(in srgb,var(--accent) 48%,var(--line)) }
     .skill b { font-size:1.05rem } .skill span { color:var(--muted); font-size:.78rem }
     .skill.ai { grid-column:span 2; background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,var(--surface)),var(--surface)) }
@@ -128,12 +129,12 @@
       <section id="skills"><div class="wrap">
         <div class="section-head"><div><div class="kicker">02 · Stack</div><h2>Tools, grouped<br>by responsibility.</h2></div><p>A capability map rather than a list of logo cards.</p></div>
         <div class="skills">
-          <div class="glass skill ai"><b>AI engineering</b><span>LLMs · MCP · RAG · agents · local/private models · prompt systems</span></div>
-          <div class="glass skill"><b>Product</b><span>Vue · TypeScript · JavaScript · HTML/CSS</span></div>
-          <div class="glass skill"><b>Backend</b><span>Python · PHP · Node.js · C++ · Lua</span></div>
-          <div class="glass skill"><b>Infrastructure</b><span>Linux · Docker · Kubernetes · Nginx · Bash · GitHub Actions</span></div>
-          <div class="glass skill"><b>Data</b><span>PostgreSQL · MySQL · MariaDB · Redis · Memcached</span></div>
-          <div class="glass skill"><b>Workflow</b><span>Git · DevOps · CI/CD · automation · observability</span></div>
+          <div class="glass skill ai"><div class="skill-icons"><img src="assets/icons/python-original.svg" alt=""><img src="assets/icons/nodejs-original-wordmark.svg" alt=""><img src="assets/icons/docker.png" alt=""></div><b>AI engineering</b><span>LLMs · MCP · RAG · agents · local/private models · prompt systems</span></div>
+          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/vite.svg" alt=""><img src="assets/icons/typescript.png" alt=""><img src="assets/icons/html-5.png" alt=""></div><b>Product</b><span>Vue · TypeScript · JavaScript · HTML/CSS</span></div>
+          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/python-original.svg" alt=""><img src="assets/icons/php-original.svg" alt=""><img src="assets/icons/cplusplus-original.svg" alt=""></div><b>Backend</b><span>Python · PHP · Node.js · C++ · Lua</span></div>
+          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/linux-original.svg" alt=""><img src="assets/icons/docker.png" alt=""><img src="assets/icons/k8s.svg" alt=""></div><b>Infrastructure</b><span>Linux · Docker · Kubernetes · Nginx · Bash · GitHub Actions</span></div>
+          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/postgresql-original-wordmark.svg" alt=""><img src="assets/icons/mysql-original-wordmark.svg" alt=""><img src="assets/icons/redis-original-wordmark.svg" alt=""></div><b>Data</b><span>PostgreSQL · MySQL · MariaDB · Redis · Memcached</span></div>
+          <div class="glass skill"><div class="skill-icons"><img src="assets/icons/git-scm-icon.svg" alt=""><img src="assets/icons/cicd.png" alt=""><img src="assets/icons/bash.svg" alt=""></div><b>Workflow</b><span>Git · DevOps · CI/CD · automation · observability</span></div>
         </div>
       </div></section>
       <section id="evidence"><div class="wrap">
