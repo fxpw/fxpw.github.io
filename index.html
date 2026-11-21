@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090a0d">
-  <meta name="description" content="Anton Koshel — Full Stack Developer, DevOps and AI-native software engineer.">
-  <title>Anton Koshel — Full Stack Developer</title>
+  <meta name="description" content="Anton Koshel leads software engineering at Sherpa RPA and builds tools for AI platforms and workflow automation.">
+  <title>Anton Koshel — Engineering Team Lead</title>
+  <link rel="icon" href="assets/icons/favicon.ico">
   <link rel="preload" href="assets/images/ava3.jpg" as="image">
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <style>
@@ -32,7 +33,6 @@
     .nav .links a.progress-dark,
     .nav .brand.progress-dark,
     .nav .icon-btn.progress-dark,
-    .nav .mobile-menu.summary.progress-dark,
     .nav .mobile-menu summary.progress-dark { color:#111318 }
     .nav .brand.progress-dark i { color:#111318 }
     .nav .brand { color:#fff }
@@ -40,10 +40,11 @@
     .nav .links a { color:#fff }
     .nav .icon-btn,
     .nav .mobile-menu summary { color:#fff }
-    .scroll-progress { position:absolute; z-index:1; inset:0 auto 0 0; width:100%; height:100%; pointer-events:none; background:transparent }
+    .scroll-progress { position:absolute; z-index:1; inset:0; border-radius:inherit; overflow:hidden; pointer-events:none }
     .scroll-progress i { display:block; position:relative; width:0; height:100%; background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent) 42%,transparent)); box-shadow:none; transition:width .08s linear }
     .scroll-progress i:before { content:none }
     .scroll-progress i:after { content:""; position:absolute; right:0; top:0; width:1px; height:100%; background:var(--accent); box-shadow:none }
+    .scroll-progress i.is-complete:after { opacity:0 }
     .brand { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; font-weight:760; letter-spacing:-.02em }
     .brand i { color:var(--accent); font-style:normal }
     .links { display:flex; gap:4px; align-items:center }
@@ -51,12 +52,16 @@
     .mobile-menu summary { width:42px; height:42px; display:grid; place-items:center; list-style:none; border:1px solid var(--line); border-radius:13px; background:var(--surface2); cursor:pointer }
     .mobile-menu summary::-webkit-details-marker { display:none }
     .mobile-menu summary svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round }
-    .mobile-menu nav { position:absolute; top:50px; right:0; width:min(230px,calc(100vw - 28px)); display:grid; gap:4px; padding:8px; border:1px solid var(--line); border-radius:16px; background:var(--surface); backdrop-filter:blur(24px); box-shadow:0 16px 44px var(--shadow) }
-    .mobile-menu nav a { padding:10px 12px; border-radius:10px; color:var(--muted); font-size:.86rem }
+    .mobile-links { position:absolute; top:calc(100% + 8px); right:0; width:min(230px,calc(100vw - 28px)); display:grid; gap:4px; padding:8px; border:1px solid var(--line); border-radius:16px; background:var(--surface); backdrop-filter:blur(24px); box-shadow:0 16px 44px var(--shadow) }
+    .mobile-links a { padding:10px 12px; border-radius:10px; color:var(--text); font-size:.86rem }
+    .mobile-links a:hover { background:var(--surface2) }
     .links a { padding:9px 11px; color:var(--muted); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; font-size:.86rem; font-weight:650; letter-spacing:.01em; border-radius:11px }
     .links a:hover { color:var(--text); background:var(--surface2) }
     .icon-btn { width:42px; height:42px; display:grid; place-items:center; border:1px solid var(--line); border-radius:13px; background:var(--surface2); color:var(--text); cursor:pointer }
     .icon-btn svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round }
+    .nav-actions { display:flex; gap:6px }
+    .language-btn { font-size:.78rem; font-weight:750 }
+    .light .nav :is(.brand,.links a,.icon-btn,.mobile-menu summary) { color:var(--text) }
     section { padding:110px 0; scroll-margin-top:90px }
     .hero { min-height:760px; display:grid; align-items:center; padding-top:150px }
     .hero-grid { display:grid; grid-template-columns:1.12fr .88fr; gap:70px; align-items:center }
@@ -65,6 +70,11 @@
     h1 { max-width:760px; margin:22px 0 20px; font-size:clamp(3.7rem,8vw,7.4rem); line-height:.91; letter-spacing:-.075em; font-weight:780 }
     h1 span { color:var(--accent) }
     .lead { max-width:620px; margin:0 0 28px; color:var(--muted); font-size:clamp(1.05rem,2vw,1.28rem) }
+    .visually-hidden { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap }
+    .typing-line { display:grid; color:var(--text); margin-bottom:5px }
+    .typing-line > [aria-hidden] { grid-area:1/1; overflow-wrap:anywhere }
+    .typing-placeholder { visibility:hidden }
+    .typing-line > [aria-hidden]::after { content:""; display:inline-block; width:2px; height:.95em; margin-left:3px; vertical-align:-.1em; background:var(--accent) }
     .actions { display:flex; gap:10px; flex-wrap:wrap }
     .button { min-height:48px; display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:0 17px; border:1px solid var(--line); border-radius:14px; background:var(--surface); backdrop-filter:blur(16px); font-weight:700 }
     .button.primary { color:#08110b; background:var(--accent); border-color:transparent }
@@ -74,17 +84,22 @@
     .portrait:after { content:""; position:absolute; inset:0; background:linear-gradient(145deg,rgba(255,255,255,.15),transparent 35%,rgba(0,0,0,.12)); pointer-events:none }
     .status { position:absolute; left:-24px; bottom:28px; z-index:2; width:190px; padding:14px; border:1px solid var(--line); border-radius:18px; background:var(--surface); backdrop-filter:blur(22px); box-shadow:0 18px 40px var(--shadow); transform:rotate(-2deg) }
     .status small { color:var(--muted) } .status strong { display:block; margin-top:3px }
-    .stats { display:grid; grid-template-columns:repeat(12,1fr); border:1px solid var(--line); border-radius:24px; overflow:hidden; background:var(--surface); backdrop-filter:blur(18px) }
-    .stat { grid-column:span 2; min-height:118px; display:flex; flex-direction:column; justify-content:center; padding:20px; border-right:1px solid var(--line) }
-    .stat-head { display:flex; align-items:center; gap:8px } .stat-icon { width:18px; height:18px; color:var(--accent); opacity:.95 }
-    .stat:last-child { border-right:0 } .stat strong { font-size:1.75rem; letter-spacing:-.04em } .stat span { color:var(--muted); font-size:.78rem }
-    .section-head { display:flex; justify-content:space-between; align-end:baseline; gap:20px; margin-bottom:34px }
+    .stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--line); border-radius:24px; overflow:hidden; background:var(--surface); backdrop-filter:blur(18px) }
+    .stats-wrap { scroll-margin-top:90px }
+    .stat { min-height:112px; display:flex; flex-direction:column; justify-content:center; padding:20px; box-shadow:1px 0 var(--line),0 1px var(--line) }
+    .stat-head { display:flex; align-items:center; gap:8px } .stat-icon { flex:none; width:18px; height:18px; color:var(--accent); opacity:.95 }
+    .stat strong { font-size:1.75rem; letter-spacing:-.04em; font-variant-numeric:tabular-nums } .stat span { color:var(--muted); font-size:.78rem }
+    .stat-history { min-width:0; margin:8px 0 0 }
+    .stat-history canvas { display:block; width:100%; height:27px; color:var(--accent) }
+    .stat-history figcaption { color:var(--muted); font-size:.67rem; margin-top:2px; font-variant-numeric:tabular-nums }
+    .stats-source { display:block; width:fit-content; margin:9px 0 0 auto; color:var(--muted); font-size:.75rem; text-decoration:underline; text-underline-offset:.2em }
+    .stats-source:hover { color:var(--accent) }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom:34px }
     .section-head h2 { margin:8px 0 0; font-size:clamp(2.2rem,5vw,4.5rem); line-height:1; letter-spacing:-.055em }
     .section-head p { max-width:430px; margin:0; color:var(--muted) }
-    .kicker { color:var(--accent); text-transform:uppercase; letter-spacing:.15em; font-size:.72rem; font-weight:800 }
     .about-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:18px }
     .glass { border:1px solid var(--line); border-radius:26px; background:var(--surface); backdrop-filter:blur(18px); box-shadow:0 18px 60px var(--shadow) }
-    .about-card { padding:28px } .about-card p { color:var(--muted); margin:0 0 16px }
+    .about-card { padding:28px } .about-card p { color:var(--muted); margin:0 } .about-card p + p { margin-top:16px }
     .facts { display:grid; grid-template-columns:1fr 1fr; gap:10px }
     .fact { padding:18px; border-radius:18px; background:var(--surface2) } .fact strong { display:block; font-size:1.1rem } .fact span { color:var(--muted); font-size:.85rem }
     .fact-head { display:flex; align-items:center; gap:10px }
@@ -98,15 +113,47 @@
     .skill b { font-size:1.05rem } .skill span { color:var(--muted); font-size:.78rem }
     .skill.ai { grid-column:span 2; background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,var(--surface)),var(--surface)) }
     .project-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:12px }
-    .project { grid-column:span 4; min-height:280px; display:flex; flex-direction:column; justify-content:space-between; padding:24px; transition:.25s transform }
-    .project.featured { grid-column:span 8; min-height:360px; background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 14%,var(--surface)),var(--surface)) }
-    .project:hover { transform:translateY(-5px) }
+    .project { grid-column:span 4; min-height:240px; min-width:0; display:flex; flex-direction:column; justify-content:space-between; padding:24px; transition:.25s transform }
+    .project.wide { grid-column:span 6 }
+    .project.featured { grid-column:span 8; background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 14%,var(--surface)),var(--surface)) }
+    .project[href]:hover { transform:translateY(-5px) }
+    .work-filters { display:flex; flex-wrap:wrap; gap:8px; margin:-12px 0 18px }
+    .work-filter { min-height:40px; padding:7px 13px; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--muted); cursor:pointer }
+    .work-filter:hover,.work-filter[aria-pressed="true"] { color:var(--accent); border-color:var(--accent) }
+    .work-filter[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 12%,var(--surface)) }
+    @media(min-width:641px) {
+      .work-grid[data-filter="personal"] .project:not(.workspace-project),.work-grid[data-filter="contributions"] .project { grid-column:span 6 }
+    }
+    @media(prefers-reduced-motion:no-preference) {
+      .project.has-entered { animation:project-enter .32s ease-out }
+      @keyframes project-enter { from { opacity:.68; translate:0 7px } to { opacity:1; translate:0 0 } }
+    }
     .project-top { display:flex; justify-content:space-between; align-items:start } .project-type { color:var(--accent); font-size:.72rem; text-transform:uppercase; letter-spacing:.12em }
     .project h3 { max-width:520px; margin:18px 0 8px; font-size:1.45rem; letter-spacing:-.03em } .project.featured h3 { font-size:2.2rem }
     .project p { max-width:620px; color:var(--muted); margin:0 }
     .tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:16px } .tag { padding:6px 9px; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:.72rem }
-    .timeline { display:grid; gap:10px } .job { display:grid; grid-template-columns:150px 1fr; gap:18px; padding:24px }
-    .job time { color:var(--accent); font-weight:800 } .job h3 { margin:0 0 6px } .job p { margin:0; color:var(--muted) }
+    .workspace-project.featured { grid-column:1/-1; padding:clamp(20px,4vw,36px); scroll-margin-top:90px }
+    .workspace-body { display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,1fr); grid-template-areas:"intro preview" "details preview"; gap:12px clamp(20px,4vw,42px); align-items:start }
+    .workspace-intro { grid-area:intro }
+    .workspace-details { grid-area:details }
+    .workspace-details .workspace-outcome { margin-top:12px; padding-left:14px; border-left:2px solid var(--accent) }
+    .workflow-preview { grid-area:preview; margin:0; padding:20px; background:var(--surface); border:1px solid var(--line); border-radius:18px }
+    .workflow-preview figcaption { margin-bottom:12px; font-size:.87rem; font-weight:750 }
+    .workflow-cases { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px }
+    .workflow-case { flex:1 1 auto; min-height:36px; padding:6px 10px; border:1px solid var(--line); border-radius:9px; background:var(--surface2); color:var(--text); font-size:.8rem; font-weight:650; cursor:pointer }
+    .workflow-case:hover,.workflow-case[aria-pressed="true"] { border-color:var(--accent); color:var(--accent) }
+    .workflow-case[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 12%,transparent) }
+    .workflow-steps { list-style:none; margin:0; padding:0 }
+    .workflow-steps li { position:relative; padding:0 0 14px 18px; margin-left:4px }
+    .workflow-steps li:not(:last-child)::before { content:""; position:absolute; top:9px; bottom:-9px; left:0; width:1px; background:var(--line) }
+    .workflow-steps li::after { content:""; position:absolute; top:7px; left:-3px; width:7px; height:7px; border-radius:50%; background:var(--accent) }
+    .workflow-steps li:last-child { padding-bottom:0 }
+    .workflow-steps strong,.workflow-steps span { display:block; font-size:.86rem }
+    .workflow-steps span { color:var(--muted); line-height:1.5; margin-top:2px }
+    .timeline { display:grid; gap:10px } .job { display:grid; grid-template-columns:170px 1fr; gap:18px; padding:24px }
+    .job-period { color:var(--accent); font-size:.88rem; font-weight:750 }
+    .job h3 { margin:0 0 6px } .job p { margin:0; color:var(--muted) }
+    .job a { display:inline-block; margin-top:9px; color:var(--accent); text-decoration:underline; text-underline-offset:.18em }
     .contact { text-align:center; border:1px solid var(--line); border-radius:32px; padding:70px 24px; background:linear-gradient(135deg,var(--surface),color-mix(in srgb,var(--accent) 8%,var(--surface))); backdrop-filter:blur(18px) }
     .contact h2 { margin:10px auto 18px; max-width:720px; font-size:clamp(2.6rem,7vw,5.8rem); line-height:.95; letter-spacing:-.07em }
     .contact-links { display:flex; justify-content:center; gap:10px; flex-wrap:wrap }
@@ -116,140 +163,189 @@
     .contact .button:not(.primary) img { filter:grayscale(1) brightness(0) invert(1) }
     footer { display:flex; justify-content:space-between; align-items:center; padding:34px 0 40px; color:var(--muted); font-size:.82rem }
     [data-reveal] { opacity:1; transform:none; transition:.7s ease } [data-reveal].visible { opacity:1; transform:none }
-    @media(max-width:900px) { .hero-grid,.about-grid { grid-template-columns:1fr } .portrait { width:min(330px,85%); margin-top:20px } .stats { grid-template-columns:repeat(2,1fr) } .stat { border-bottom:1px solid var(--line) } .skills { grid-template-columns:repeat(2,1fr) } .project,.project.featured { grid-column:span 12 } .links a { display:none } .mobile-menu { display:block } }
-    @media(max-width:560px) { .wrap { width:min(100% - 28px,1120px) } section { padding:82px 0 } .hero { min-height:auto } h1 { font-size:4.2rem } .section-head { display:block } .section-head p { margin-top:14px } .skills { grid-template-columns:1fr } .skill.ai { grid-column:auto } .job { grid-template-columns:1fr } .stats { grid-template-columns:1fr 1fr } .stat { padding:14px } .nav { top:10px } footer { align-items:flex-start; gap:12px } }
-    @media(prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; transition:none!important } }
+    @media(max-width:900px) { .nav { overflow:visible } .hero-grid,.about-grid { grid-template-columns:1fr } .portrait { width:min(330px,85%); margin-top:20px } .skills { grid-template-columns:repeat(2,1fr) } .project,.project.wide,.project.featured { grid-column:span 6 } .workspace-project.featured,.evidence-grid .project:last-child,.work-grid:is([data-filter="all"],[data-filter="sherpa"]) .project:last-child { grid-column:1/-1 } .links { display:none } .nav .mobile-menu { display:block; position:static } }
+    @media(max-width:620px) { .stats { grid-template-columns:repeat(2,minmax(0,1fr)) } .stat { min-height:94px; padding:14px } }
+    @media(max-width:640px) { .project,.project.wide,.project.featured { grid-column:1/-1; min-height:0 } .workspace-body { grid-template-columns:1fr; grid-template-areas:"intro" "preview" "details"; gap:18px } }
+    @media(max-width:560px) { .wrap { width:min(100% - 28px,1120px) } section { padding:82px 0 } .hero { min-height:auto } h1 { font-size:4.2rem } .section-head { display:block } .section-head p { margin-top:14px } .skills { grid-template-columns:1fr } .skill.ai { grid-column:auto } .job { grid-template-columns:1fr; gap:8px } .nav { top:10px } footer { align-items:flex-start; gap:12px } }
+    @media(prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; transition:none!important } .typing-line > [aria-hidden]::after { visibility:hidden } }
   </style>
 </head>
 <body>
   <div id="app">
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav" :aria-label="copy.primaryNav">
       <a class="brand" href="#top">fxpw<i>.</i></a>
       <div class="links">
-        <a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a>
+        <a v-for="(label, section) in copy.nav" :key="section" :href="'#' + section">{{ label }}</a>
       </div>
-      <details class="mobile-menu"><summary aria-label="Open navigation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary><nav><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a><a href="#contact">Contact</a></nav></details>
-      <button class="icon-btn" @click="toggleTheme" :aria-label="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'">
-        <svg v-if="theme === 'dark'" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
-        <svg v-else viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.2A8.5 8.5 0 018.8 3.8 8.5 8.5 0 1020.2 15.2z"/></svg>
-      </button>
+      <details class="mobile-menu" ref="mobileMenu">
+        <summary :aria-label="copy.openNav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+        <div class="mobile-links">
+          <a v-for="(label, section) in copy.nav" :key="section" :href="'#' + section" @click="$refs.mobileMenu.open = false">{{ label }}</a>
+        </div>
+      </details>
+      <div class="nav-actions">
+        <button type="button" class="icon-btn language-btn" @click="toggleLanguage" :aria-label="copy.switchLanguage" :title="copy.switchLanguage" :lang="language === 'en' ? 'ru' : 'en'">{{ language === 'en' ? 'RU' : 'EN' }}</button>
+        <button type="button" class="icon-btn theme-btn" @click="toggleTheme" :aria-label="theme === 'dark' ? copy.lightTheme : copy.darkTheme">
+          <svg v-if="theme === 'dark'" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
+          <svg v-else viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.2A8.5 8.5 0 018.8 3.8 8.5 8.5 0 1020.2 15.2z"/></svg>
+        </button>
+      </div>
       <div class="scroll-progress" aria-hidden="true"><i id="scrollProgress"></i></div>
     </nav>
     <main id="top">
       <section class="hero">
         <div class="wrap hero-grid">
           <div data-reveal>
-            <div class="eyebrow">Belarus · available worldwide</div>
-            <h1>Hi, I'm<br><span>Anton.</span></h1>
-            <p class="lead"><strong>Full Stack Developer / DevOps / AI Engineering</strong><br>5+ years building software across product interfaces, backend services, infrastructure and AI workflows.</p>
-            <div class="actions"><a class="button primary" href="#work">View engineering work <span>↘</span></a><a class="button" href="assets/files/resume.pdf" download>Résumé ↓</a><a class="button" href="https://t.me/fx_pw" target="_blank" rel="noreferrer">Telegram ↗</a></div>
+            <div class="eyebrow">{{ copy.location }}</div>
+            <h1>{{ copy.greeting }}<br><span>{{ copy.firstName }}</span></h1>
+            <p class="lead">
+              <strong class="typing-line" ref="typingLine">
+                <span class="visually-hidden">{{ copy.role }}</span>
+                <span v-for="phrase in copy.typingRoles" :key="phrase" class="typing-placeholder" aria-hidden="true">{{ phrase }}</span>
+                <span class="typing-text" aria-hidden="true">{{ typedRole }}</span>
+              </strong>
+              {{ copy.lead }}
+            </p>
+            <div class="actions"><a class="button primary" href="#work">{{ copy.viewWork }} <span aria-hidden="true">↘</span></a><a class="button" href="assets/files/resume.pdf" download>{{ copy.resume }} <span aria-hidden="true">↓</span></a><a class="button" href="https://t.me/fx_pw" target="_blank" rel="noreferrer">Telegram <span aria-hidden="true">↗</span></a></div>
           </div>
           <div class="portrait-wrap" data-reveal>
-            <div class="portrait"><img src="assets/images/ava3.jpg" alt="Anton Koshel"></div>
-            <a class="status" href="https://sherparpa.ru/sherpa-rpa/" target="_blank" rel="noreferrer"><small>Currently</small><strong>Building at Sherpa RPA</strong></a>
+            <div class="portrait"><img src="assets/images/ava3.jpg" :alt="copy.name"></div>
+            <a class="status" href="https://sherparpa.ru/sherpa-rpa/" target="_blank" rel="noreferrer"><small>{{ copy.current }}</small><strong>{{ copy.employer }}</strong></a>
           </div>
         </div>
       </section>
-      <div class="wrap" data-reveal>
-        <div class="stats">
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h18M5 7v12h14V7M8 3h8l2 4H6l2-4z"/></svg><strong>{{ stats.totalRepos || '249+' }}</strong></div><span>total repositories</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg><strong>{{ stats.commits || '2361+' }}</strong></div><span>commits</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"/></svg><strong>{{ stats.totalStars || '130+' }}</strong></div><span>stars</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="5" r="2"/><circle cx="17" cy="5" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 7v3h10V7M12 10v6"/></svg><strong>{{ stats.forks || '189+' }}</strong></div><span>forks</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-5 10-5 10 5 10 5-3.5 5-10 5S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg><strong>{{ stats.watchers || '145+' }}</strong></div><span>watchers</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16v12H4zM8 7V4h8v3M8 12h8M8 16h5"/></svg><strong>{{ stats.releases || '321+' }}</strong></div><span>releases</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 11a4 4 0 108 0 4 4 0 00-8 0zM3 21a7 7 0 0114 0M17 8a3 3 0 010 6M19 21a5 5 0 00-3-4"/></svg><strong>{{ stats.followers || '76+' }}</strong></div><span>followers</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><strong>{{ stats.pullRequestsOpened || '3001+' }}</strong></div><span>pull requests opened</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M8 12l2.5 2.5L16 9"/></svg><strong>{{ stats.pullRequestsReviewed || '2480+' }}</strong></div><span>pull requests reviewed</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.5"/></svg><strong>{{ stats.issues || '4528+' }}</strong></div><span>issues opened</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L12 2z"/></svg><strong>{{ stats.currentStreak || '—' }}</strong></div><span>current streak</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 18l4-4 3 2 5-7 4 3M4 21h16"/></svg><strong>{{ stats.longestStreak || '—' }}</strong></div><span>longest streak</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M5 8l7-5 7 5M7 21h10"/></svg><strong>{{ stats.averageCommitsPerDay || '—' }}</strong></div><span>commits / day</span></div>
+      <div id="github-stats" class="wrap stats-wrap" data-reveal>
+        <div class="stats" ref="stats">
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h18M5 7v12h14V7M8 3h8l2 4H6l2-4z"/></svg><strong>{{ formatStat('totalRepos') }}</strong></div><span>{{ copy.stats.totalRepos }}</span><stat-history v-if="statSeries.totalRepos.points.length > 1" :points="statSeries.totalRepos.points" :monthly="statSeries.totalRepos.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.totalRepos" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"/></svg><strong>{{ formatStat('totalStars') }}</strong></div><span>{{ copy.stats.totalStars }}</span><stat-history v-if="statSeries.totalStars.points.length > 1" :points="statSeries.totalStars.points" :monthly="statSeries.totalStars.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.totalStars" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="5" r="2"/><circle cx="17" cy="5" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 7v3h10V7M12 10v6"/></svg><strong>{{ formatStat('forks') }}</strong></div><span>{{ copy.stats.forks }}</span><stat-history v-if="statSeries.forks.points.length > 1" :points="statSeries.forks.points" :monthly="statSeries.forks.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.forks" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16v12H4zM8 7V4h8v3M8 12h8M8 16h5"/></svg><strong>{{ formatStat('releases') }}</strong></div><span>{{ copy.stats.releases }}</span><stat-history v-if="statSeries.releases.points.length > 1" :points="statSeries.releases.points" :monthly="statSeries.releases.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.releases" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-5 10-5 10 5 10 5-3.5 5-10 5S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg><strong>{{ formatStat('watchers') }}</strong></div><span>{{ copy.stats.watchers }}</span><stat-history v-if="statSeries.watchers.points.length > 1" :points="statSeries.watchers.points" :monthly="statSeries.watchers.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.watchers" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 11a4 4 0 108 0 4 4 0 00-8 0zM3 21a7 7 0 0114 0M17 8a3 3 0 010 6M19 21a5 5 0 00-3-4"/></svg><strong>{{ formatStat('followers') }}</strong></div><span>{{ copy.stats.followers }}</span><stat-history v-if="statSeries.followers.points.length > 1" :points="statSeries.followers.points" :monthly="statSeries.followers.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.followers" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 7a3.5 3.5 0 1 0 7 0 3.5 3.5 0 0 0-7 0ZM3 20v-2a6 6 0 0 1 12 0v2M18 9v6m-3-3h6"/></svg><strong>{{ formatStat('following') }}</strong></div><span>{{ copy.stats.following }}</span><stat-history v-if="statSeries.following.points.length > 1" :points="statSeries.following.points" :monthly="statSeries.following.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.following" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg><strong>{{ formatStat('commits') }}</strong></div><span>{{ copy.stats.commits }}</span><stat-history v-if="statSeries.commits.points.length > 1" :points="statSeries.commits.points" :monthly="statSeries.commits.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.commits" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><strong>{{ formatStat('pullRequestsOpened') }}</strong></div><span>{{ copy.stats.pullRequestsOpened }}</span><stat-history v-if="statSeries.pullRequestsOpened.points.length > 1" :points="statSeries.pullRequestsOpened.points" :monthly="statSeries.pullRequestsOpened.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.pullRequestsOpened" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M8 12l2.5 2.5L16 9"/></svg><strong>{{ formatStat('pullRequestsReviewed') }}</strong></div><span>{{ copy.stats.pullRequestsReviewed }}</span><stat-history v-if="statSeries.pullRequestsReviewed.points.length > 1" :points="statSeries.pullRequestsReviewed.points" :monthly="statSeries.pullRequestsReviewed.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.pullRequestsReviewed" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.5"/></svg><strong>{{ formatStat('issues') }}</strong></div><span>{{ copy.stats.issues }}</span><stat-history v-if="statSeries.issues.points.length > 1" :points="statSeries.issues.points" :monthly="statSeries.issues.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.issues" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5h18v12H9l-6 4V5zm4 4h10M7 13h7"/></svg><strong>{{ formatStat('issueComments') }}</strong></div><span>{{ copy.stats.issueComments }}</span><stat-history v-if="statSeries.issueComments.points.length > 1" :points="statSeries.issueComments.points" :monthly="statSeries.issueComments.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.issueComments" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L12 2z"/></svg><strong>{{ formatStat('currentStreak') }}</strong></div><span>{{ copy.stats.currentStreak }}</span><stat-history v-if="statSeries.currentStreak.points.length > 1" :points="statSeries.currentStreak.points" :monthly="statSeries.currentStreak.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.currentStreak" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 18l4-4 3 2 5-7 4 3M4 21h16"/></svg><strong>{{ formatStat('longestStreak') }}</strong></div><span>{{ copy.stats.longestStreak }}</span><stat-history v-if="statSeries.longestStreak.points.length > 1" :points="statSeries.longestStreak.points" :monthly="statSeries.longestStreak.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.longestStreak" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M5 10l7-7 7 7M7 21h10"/></svg><strong>{{ formatStat('highestCommitsPerDay') }}</strong></div><span>{{ copy.stats.highestCommitsPerDay }}</span><stat-history v-if="statSeries.highestCommitsPerDay.points.length > 1" :points="statSeries.highestCommitsPerDay.points" :monthly="statSeries.highestCommitsPerDay.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.highestCommitsPerDay" :theme="theme"></stat-history></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20h16M7 17v-5m5 5V7m5 10V4"/></svg><strong>{{ formatStat('averageCommitsPerDay') }}</strong></div><span>{{ copy.stats.averageCommitsPerDay }}</span><stat-history v-if="statSeries.averageCommitsPerDay.points.length > 1" :points="statSeries.averageCommitsPerDay.points" :monthly="statSeries.averageCommitsPerDay.monthly" :language="language" :label="copy.statsHistory + ' · ' + copy.stats.averageCommitsPerDay" :theme="theme"></stat-history></div>
         </div>
+        <a v-if="metricHistory.monthly.length" class="stats-source" href="assets/github-stats-history.json" target="_blank" rel="noreferrer">{{ copy.statsSources }} <span aria-hidden="true">↗</span></a>
       </div>
       <section id="about"><div class="wrap">
-        <div class="section-head"><div><div class="kicker">01 · About</div><h2>Useful software.<br>Cleanly engineered.</h2></div><p>I like systems that explain themselves, scale without drama and solve a real problem. From product UI to servers, databases and AI tooling.</p></div>
+        <div class="section-head"><h2>{{ copy.aboutTitle }}</h2><p>{{ copy.aboutIntro }}</p></div>
         <div class="about-grid">
           <div class="glass about-card facts">
-            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2M5 12l-2 2M19 12l2 2"/></svg></span><strong>5+ years</strong></div><span>software engineering</span></div>
-            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 8h8M8 12h5M8 16h7"/></svg></span><strong>Full stack</strong></div><span>product to infrastructure</span></div>
-            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></span><strong>AI native</strong></div><span>tooling and integration</span></div>
-            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM8 9h8M8 13h5M8 17h7"/></svg></span><strong>Manga</strong></div><span>reading & collecting</span></div>
+            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2M5 12l-2 2M19 12l2 2"/></svg></span><strong>{{ copy.aboutFacts[0][0] }}</strong></div><span>{{ copy.aboutFacts[0][1] }}</span></div>
+            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 8h8M8 12h5M8 16h7"/></svg></span><strong>{{ copy.aboutFacts[1][0] }}</strong></div><span>{{ copy.aboutFacts[1][1] }}</span></div>
+            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></span><strong>{{ copy.aboutFacts[2][0] }}</strong></div><span>{{ copy.aboutFacts[2][1] }}</span></div>
+            <div class="fact"><div class="fact-head"><span class="tech-icon"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM8 9h8M8 13h5M8 17h7"/></svg></span><strong>{{ copy.aboutFacts[3][0] }}</strong></div><span>{{ copy.aboutFacts[3][1] }}</span></div>
           </div>
-          <div class="glass about-card"><p>I work where engineering, operations and product meet. My strongest range is backend systems, DevOps, desktop tooling, data-heavy products and automation.</p><p>I also use AI as part of the engineering workflow: MCP integrations, LLM backends, code agents, prompt systems and local/private model infrastructure.</p></div>
+          <div class="glass about-card"><p>{{ copy.aboutWork }}</p><p>{{ copy.aboutPersonal }}</p></div>
         </div>
       </div></section>
       <section id="skills"><div class="wrap">
-        <div class="section-head"><div><div class="kicker">02 · Stack</div><h2>Tools, grouped<br>by responsibility.</h2></div><p>A capability map rather than a list of logo cards.</p></div>
+        <div class="section-head"><h2>{{ copy.nav.skills }}</h2></div>
         <div class="skills">
           <div class="glass skill ai"><div class="skill-icons">
-            <span class="tech-icon" aria-label="AI"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg></span>
-            <span class="tech-icon" aria-label="Docker"><svg viewBox="0 0 24 24"><path d="M3 13h16c0 4-3 7-7 7H8c-3 0-5-2-5-5zM6 10V8M9 10V7M12 10V6M15 10V8M18 10h3l-1 3"/></svg></span>
-            <span class="tech-icon" aria-label="Language"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h5M8 16h7"/></svg></span>
-          </div><b>AI engineering</b><span>LLMs · MCP · RAG · agents · local/private models · prompt systems</span></div>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13h16c0 4-3 7-7 7H8c-3 0-5-2-5-5zM6 10V8M9 10V7M12 10V6M15 10V8M18 10h3l-1 3"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h5M8 16h7"/></svg></span>
+          </div><b>{{ copy.skills[0][0] }}</b><span>{{ copy.skills[0][1] }}</span></div>
           <div class="glass skill"><div class="skill-icons">
-            <span class="tech-icon" aria-label="Vue"><svg viewBox="0 0 24 24"><path d="M3 5h4l5 9 5-9h4l-9 15L3 5z"/></svg></span>
-            <span class="tech-icon" aria-label="TypeScript"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 10h8M12 10v7M16 10l-1.5 2"/></svg></span>
-            <span class="tech-icon" aria-label="Web"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9l-2 3 2 3M16 9l2 3-2 3M14 8l-4 8"/></svg></span>
-          </div><b>Product</b><span>Vue · TypeScript · JavaScript · HTML/CSS</span></div>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5h4l5 9 5-9h4l-9 15L3 5z"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 10h8M12 10v7M16 10l-1.5 2"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9l-2 3 2 3M16 9l2 3-2 3M14 8l-4 8"/></svg></span>
+          </div><b>{{ copy.skills[1][0] }}</b><span>{{ copy.skills[1][1] }}</span></div>
           <div class="glass skill"><div class="skill-icons">
-            <span class="tech-icon" aria-label="Python"><svg viewBox="0 0 24 24"><path d="M12 3H8a3 3 0 00-3 3v3h7v2H5v4a3 3 0 003 3h4M12 21h4a3 3 0 003-3v-3h-7v-2h7V9a3 3 0 00-3-3h-4"/><circle cx="8" cy="7" r=".7"/><circle cx="16" cy="17" r=".7"/></svg></span>
-            <span class="tech-icon" aria-label="PHP"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><path d="M6 9l-2 6M18 9l2 6M9 9l-1 6M15 9l1 6M10 12h4"/></svg></span>
-            <span class="tech-icon" aria-label="C++"><svg viewBox="0 0 24 24"><circle cx="10" cy="12" r="6"/><path d="M16 9h5M16 15h5M18.5 6.5v5M18.5 13.5v5"/></svg></span>
-          </div><b>Backend</b><span>Python · PHP · Node.js · C++ · Lua</span></div>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3H8a3 3 0 00-3 3v3h7v2H5v4a3 3 0 003 3h4M12 21h4a3 3 0 003-3v-3h-7v-2h7V9a3 3 0 00-3-3h-4"/><circle cx="8" cy="7" r=".7"/><circle cx="16" cy="17" r=".7"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><path d="M6 9l-2 6M18 9l2 6M9 9l-1 6M15 9l1 6M10 12h4"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10" cy="12" r="6"/><path d="M16 9h5M16 15h5M18.5 6.5v5M18.5 13.5v5"/></svg></span>
+          </div><b>{{ copy.skills[2][0] }}</b><span>{{ copy.skills[2][1] }}</span></div>
           <div class="glass skill"><div class="skill-icons">
-            <span class="tech-icon" aria-label="Linux"><svg viewBox="0 0 24 24"><path d="M8 18c-2 0-3 1-3 2h14c0-1-1-2-3-2M9 18V9a3 3 0 016 0v9M9 12l-3 2M15 12l3 2"/><circle cx="10" cy="8" r=".5"/><circle cx="14" cy="8" r=".5"/></svg></span>
-            <span class="tech-icon" aria-label="Containers"><svg viewBox="0 0 24 24"><path d="M3 14h18c0 4-3 6-6 6H9c-4 0-6-2-6-6zM6 11V8M9 11V7M12 11V6M15 11V8M18 11h3"/></svg></span>
-            <span class="tech-icon" aria-label="Kubernetes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v6M12 14v6M4 12h6M14 12h6M6.3 6.3l4.2 4.2M13.5 13.5l4.2 4.2M17.7 6.3l-4.2 4.2M10.5 13.5l-4.2 4.2"/></svg></span>
-          </div><b>Infrastructure</b><span>Linux · Docker · Kubernetes · Nginx · Bash · GitHub Actions</span></div>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 18c-2 0-3 1-3 2h14c0-1-1-2-3-2M9 18V9a3 3 0 016 0v9M9 12l-3 2M15 12l3 2"/><circle cx="10" cy="8" r=".5"/><circle cx="14" cy="8" r=".5"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 14h18c0 4-3 6-6 6H9c-4 0-6-2-6-6zM6 11V8M9 11V7M12 11V6M15 11V8M18 11h3"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v6M12 14v6M4 12h6M14 12h6M6.3 6.3l4.2 4.2M13.5 13.5l4.2 4.2M17.7 6.3l-4.2 4.2M10.5 13.5l-4.2 4.2"/></svg></span>
+          </div><b>{{ copy.skills[3][0] }}</b><span>{{ copy.skills[3][1] }}</span></div>
           <div class="glass skill"><div class="skill-icons">
-            <span class="tech-icon" aria-label="Database"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 2 3 3 7 3s7-1 7-3V6M5 12v6c0 2 3 3 7 3s7-1 7-3v-6"/></svg></span>
-            <span class="tech-icon" aria-label="SQL"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 9h10M7 13h6M7 17h8"/></svg></span>
-            <span class="tech-icon" aria-label="Cache"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2M7 5l2 3M17 5l-2 3"/></svg></span>
-          </div><b>Data</b><span>PostgreSQL · MySQL · MariaDB · Redis · Memcached</span></div>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 2 3 3 7 3s7-1 7-3V6M5 12v6c0 2 3 3 7 3s7-1 7-3v-6"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 9h10M7 13h6M7 17h8"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2M7 5l2 3M17 5l-2 3"/></svg></span>
+          </div><b>{{ copy.skills[4][0] }}</b><span>{{ copy.skills[4][1] }}</span></div>
           <div class="glass skill"><div class="skill-icons">
-            <span class="tech-icon" aria-label="Git"><svg viewBox="0 0 24 24"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="12" cy="12" r="2"/><path d="M7 15V9a2 2 0 012-2h6M12 14l3-5"/></svg></span>
-            <span class="tech-icon" aria-label="CI CD"><svg viewBox="0 0 24 24"><path d="M4 12h5l2-5 3 10 2-5h4"/></svg></span>
-            <span class="tech-icon" aria-label="Terminal"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 9l3 3-3 3M12 15h5"/></svg></span>
-          </div><b>Workflow</b><span>Git · DevOps · CI/CD · automation · observability</span></div>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="12" cy="12" r="2"/><path d="M7 15V9a2 2 0 012-2h6M12 14l3-5"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h5l2-5 3 10 2-5h4"/></svg></span>
+            <span class="tech-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 9l3 3-3 3M12 15h5"/></svg></span>
+          </div><b>{{ copy.skills[5][0] }}</b><span>{{ copy.skills[5][1] }}</span></div>
         </div>
       </div></section>
       <section id="evidence"><div class="wrap">
-        <div class="section-head"><div><div class="kicker">03 · Engineering evidence</div><h2>AI and infrastructure,<br>with source.</h2></div><p>Public repositories show implementation patterns and workflows. Product details from Sherpa RPA remain presentation-level until source or documentation is approved for sharing.</p></div>
-        <div class="project-grid">
-          <a class="glass project featured" href="https://github.com/fxpw/glossa" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">AI · Knowledge systems</span><span>↗</span></div><h3>Glossa</h3><p>Offline file-first knowledge base with a reasoning graph and MCP server for LLM agents.</p></div><div class="tags"><span class="tag">MCP</span><span class="tag">LLM agents</span><span class="tag">Offline-first</span><span class="tag">Knowledge graph</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/llm-scraper" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">AI · Structured extraction</span><span>↗</span></div><h3>LLM Scraper</h3><p>Turn arbitrary webpages into structured data through an LLM extraction pipeline.</p></div><div class="tags"><span class="tag">LLM</span><span class="tag">Scraping</span><span class="tag">Structured data</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/llm_docker_vscode" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">AI tooling · Docker</span><span>↗</span></div><h3>LLM Docker for VS Code</h3><p>Reproducible Docker environment for local LLM development in VS Code.</p></div><div class="tags"><span class="tag">Docker</span><span class="tag">VS Code</span><span class="tag">Local LLM</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/vscode-fxpw-ai-chat" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">AI integration · Editor</span><span>↗</span></div><h3>VS Code AI Chat</h3><p>AI chat extension with HTTP/SOCKS proxy support for VS Code workflows.</p></div><div class="tags"><span class="tag">TypeScript</span><span class="tag">VS Code</span><span class="tag">Proxy</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/docker-mailserver" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Infrastructure · Containers</span><span>↗</span></div><h3>Docker Mail Server</h3><p>Ready-to-use containerized mail service for deployment-oriented operations.</p></div><div class="tags"><span class="tag">Docker</span><span class="tag">Linux</span><span class="tag">Mail</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/github_action_template_repo" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Automation · CI/CD</span><span>↗</span></div><h3>GitHub Actions Template</h3><p>Reusable workflow templates for CI/CD and repository automation.</p></div><div class="tags"><span class="tag">GitHub Actions</span><span class="tag">CI/CD</span><span class="tag">Automation</span></div></a>
+        <div class="section-head"><h2>{{ copy.evidenceTitle }}</h2></div>
+        <div class="project-grid evidence-grid">
+          <portfolio-project v-for="(key, index) in projectGroups.evidence" :key="key" :details="copy.projects[key]" :link="projectLinks[key]"
+            :class="{ featured: index === 0, wide: index >= 5 }"></portfolio-project>
         </div>
       </div></section>
       <section id="work"><div class="wrap">
-        <div class="section-head"><div><div class="kicker">03 · Selected work</div><h2>Systems made<br>for real use.</h2></div><p>Current production work and open-source tools.</p></div>
-        <div class="project-grid">
-          <a class="glass project featured" href="https://sherparpa.ru/sherpa-rpa/" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Current company · Ownership</span><span>↗</span></div><h3>Sherpa RPA ecosystem</h3><p>My responsibility spans product engineering and platform delivery across an enterprise RPA environment. I work across backend systems, infrastructure and AI-assisted workflows.</p></div><div class="tags"><span class="tag">Full-stack delivery</span><span class="tag">Infrastructure</span><span class="tag">Technical leadership</span></div></a>
-          <a class="glass project" href="https://sherparpa.ru/sherpa-ai-server-test/" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Platform product · AI</span><span>↗</span></div><h3>AI Server</h3><p>LLM serving and integration layer for applications. Responsible for the engineering path from service integration toward dependable production use.</p></div><div class="tags"><span class="tag">LLM</span><span class="tag">API</span><span class="tag">Production integration</span></div></a>
-          <a class="glass project" href="https://sherparpa.ru/sherpa-pd/" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Platform product · Data</span><span>↗</span></div><h3>PD Server</h3><p>Data and processing services for operational workloads, with attention to backend behavior and infrastructure boundaries.</p></div><div class="tags"><span class="tag">Python</span><span class="tag">Data</span><span class="tag">Services</span></div></a>
-          <article class="glass project"><div><div class="project-top"><span class="project-type">Platform product · Automation</span><span>03</span></div><h3>Orchestrator</h3><p>Service coordination and execution-flow automation for practical, repeatable operations across the platform.</p></div><div class="tags"><span class="tag">Automation</span><span class="tag">Infrastructure</span><span class="tag">Coordination</span></div></article>
-          <a class="glass project" href="https://github.com/fxpw/vscode-fxpw-theme" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Pinned · SCSS</span><span>↗</span></div><h3>VS Code FXPW Theme</h3><p>Custom theme for Visual Studio Code.</p></div><div class="tags"><span class="tag">SCSS</span><span class="tag">VS Code</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/awesome-sirus-launcher" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Pinned · TypeScript</span><span>↗</span></div><h3>Awesome Sirus Launcher</h3><p>Community Sirus addon updater and desktop launcher.</p></div><div class="tags"><span class="tag">TypeScript</span><span class="tag">Desktop</span><span class="tag">Automation</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/ftp_action" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Pinned · JavaScript</span><span>↗</span></div><h3>ftp_action</h3><p>JavaScript automation for FTP-based action workflows.</p></div><div class="tags"><span class="tag">JavaScript</span><span class="tag">Automation</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/FURYCUBE-G9-PRO-HUB" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Pinned · C# / Vue</span><span>↗</span></div><h3>FURYCUBE G9 Pro Hub</h3><p>Windows HID control app for device profiles, OLED layouts and firmware-research tooling.</p></div><div class="tags"><span class="tag">C#</span><span class="tag">Vue</span><span class="tag">Windows</span><span class="tag">HID</span></div></a>
-          <a class="glass project" href="https://github.com/fxpw/Seelen-UI" target="_blank" rel="noreferrer"><div><div class="project-top"><span class="project-type">Pinned · Rust fork</span><span>↗</span></div><h3>Seelen UI</h3><p>Fork of a customizable Windows 10/11 desktop environment.</p></div><div class="tags"><span class="tag">Rust</span><span class="tag">Desktop</span><span class="tag">Windows</span></div></a>
+        <div class="section-head"><h2>{{ copy.workTitle }}</h2><p>{{ copy.workIntro }}</p></div>
+        <div class="work-filters" role="group" :aria-label="copy.workFiltersLabel">
+          <button v-for="(label, key) in copy.workFilters" :key="key" type="button" class="work-filter" :aria-pressed="workFilter === key"
+            aria-controls="work-projects" @click="workFilter = key">{{ label }}</button>
+        </div>
+        <div id="work-projects" class="project-grid work-grid" :data-filter="workFilter">
+          <article v-if="workFilter === 'all' || workFilter === 'personal'" v-card-appearance id="workspace" class="glass project featured workspace-project" aria-labelledby="workspace-title">
+            <div class="workspace-body">
+              <div class="workspace-intro">
+                <div class="project-type">{{ copy.workspace.type }}</div>
+                <h3 id="workspace-title">Workspace</h3>
+                <p>{{ copy.workspace.summary }}</p>
+              </div>
+              <figure class="workflow-preview">
+                <figcaption id="workspace-examples">{{ copy.workspace.example }}</figcaption>
+                <div class="workflow-cases" role="group" aria-labelledby="workspace-examples">
+                  <button v-for="(scenario, key) in copy.workspace.scenarios" :key="key" type="button" class="workflow-case"
+                    :aria-pressed="workspaceScenario === key" aria-controls="workspace-sequence" @click="workspaceScenario = key">{{ scenario.label }}</button>
+                </div>
+                <div id="workspace-sequence" aria-live="polite" aria-atomic="true">
+                  <ol class="workflow-steps" role="list">
+                    <li v-for="[title, description] in copy.workspace.scenarios[workspaceScenario].steps" :key="title">
+                      <strong>{{ title }}</strong>
+                      <span>{{ description }}</span>
+                    </li>
+                  </ol>
+                </div>
+              </figure>
+              <div class="workspace-details">
+                <p>{{ copy.workspace.runs }}</p>
+                <p class="workspace-outcome">{{ copy.workspace.recovery }}</p>
+                <div class="tags"><span v-for="tag in workspaceTags" :key="tag" class="tag">{{ tag }}</span></div>
+              </div>
+            </div>
+          </article>
+          <portfolio-project v-for="key in visibleWorkProjects" :key="key" :details="copy.projects[key]" :link="projectLinks[key]"></portfolio-project>
         </div>
       </div></section>
       <section id="path"><div class="wrap">
-        <div class="section-head"><div><div class="kicker">04 · Journey</div><h2>Experience with<br>context.</h2></div><p>From independent delivery to leading product engineering.</p></div>
+        <div class="section-head"><h2>{{ copy.experienceTitle }}</h2></div>
         <div class="timeline">
-          <article class="glass job"><time>2025 — now</time><div><h3>Sherpa RPA · Full Stack Developer / Team Lead</h3><p>Building enterprise automation products, including AI Server, PD Server and an orchestration platform. Owning delivery across product, backend and infrastructure.</p></div></article>
-          <article class="glass job"><time>2023 — 2025</time><div><h3>Creative Paradise · Full Stack Developer / Team Lead</h3><p>Led cross-functional delivery, built web systems and grew technical ownership in a fast-moving team.</p></div></article>
-          <article class="glass job"><time>2020 — 2023</time><div><h3>Freelance · Software Engineer</h3><p>Delivered custom software for small and medium businesses, spanning web, automation and infrastructure.</p></div></article>
+          <article v-for="([startLabel, endLabel, role, summary, workLink], index) in copy.jobs" :key="jobDates[index][0]" class="glass job">
+            <div class="job-period">
+              <time :datetime="jobDates[index][0]">{{ startLabel }}</time> –
+              <time v-if="jobDates[index][1]" :datetime="jobDates[index][1]">{{ endLabel }}</time><span v-else>{{ endLabel }}</span>
+            </div>
+            <div>
+              <h3>{{ role }}</h3>
+              <p>{{ summary }}</p>
+              <a v-if="workLink" href="#work">{{ workLink }}</a>
+            </div>
+          </article>
         </div>
       </div></section>
       <section id="contact"><div class="wrap"><div class="contact" data-reveal>
-        <div class="kicker">05 · Contact</div>
-        <h2>Let's build something useful.</h2>
+        <h2>{{ copy.contactTitle }}</h2>
         <div class="contact-links">
           <a class="button primary" href="https://t.me/fx_pw" target="_blank" rel="noreferrer"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 4 3 3-14zM9 13l8-6"/></svg>Telegram</a>
           <a class="button" href="https://github.com/fxpw" target="_blank" rel="noreferrer"><svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="12" cy="12" r="2"/><path d="M7 15V9a2 2 0 012-2h6M12 14l3-5"/></svg>GitHub</a>
@@ -257,54 +353,257 @@
         </div>
       </div></div></section>
     </main>
-    <footer class="wrap"><span>© {{ year }} Anton Koshel</span><a href="#top">Back to top ↑</a></footer>
+    <footer class="wrap"><span>© {{ year }} {{ copy.name }}</span><a href="#top">{{ copy.backToTop }} <span aria-hidden="true">↑</span></a></footer>
   </div>
+  <template id="project-card-template">
+    <component :is="link ? 'a' : 'article'" v-card-appearance class="glass project" :href="link" :target="link ? '_blank' : undefined" :rel="link ? 'noreferrer' : undefined">
+      <div>
+        <div class="project-top"><span class="project-type">{{ details.type }}</span><span v-if="link" aria-hidden="true">↗</span></div>
+        <h3>{{ details.title }}</h3>
+        <p>{{ details.description }}</p>
+      </div>
+      <div class="tags"><span v-for="tag in details.tags" :key="tag" class="tag">{{ tag }}</span></div>
+    </component>
+  </template>
+  <template id="stat-history-template">
+    <figure class="stat-history" :aria-label="description" :title="description">
+      <canvas ref="plot" aria-hidden="true" @pointermove="inspect" @pointerdown="inspect" @pointerleave="selectedIndex = null"></canvas>
+      <figcaption>{{ caption }}</figcaption>
+    </figure>
+  </template>
+  <script src="js/portfolio-copy.js"></script>
+  <script src="js/stat-history.js"></script>
   <script>
-    const {createApp}=Vue;
+    const { createApp } = Vue;
+    const initialLanguage = [
+      new URLSearchParams(location.search).get('lang'),
+      localStorage.getItem('portfolio-language'),
+      navigator.language.split('-')[0]
+    ].find(lang => lang === 'en' || lang === 'ru') ?? 'en';
+
+    const cardAppearance = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('has-entered');
+        cardAppearance.unobserve(entry.target);
+      }
+    }, { threshold: .08 });
+
     createApp({
-      data(){return{theme:localStorage.getItem('theme')||'dark',stats:{},year:new Date().getFullYear()}},
+      directives: {
+        cardAppearance: {
+          mounted(element) { cardAppearance.observe(element); },
+          unmounted(element) { cardAppearance.unobserve(element); }
+        }
+      },
+      components: {
+        StatHistory,
+        PortfolioProject: {
+          props: { details: Object, link: String },
+          template: '#project-card-template'
+        }
+      },
+      data() {
+        return {
+          language: initialLanguage,
+          theme: localStorage.getItem('theme') || 'dark',
+          stats: {},
+          statsProgress: 0,
+          metricHistory: { monthly: [], recent: [] },
+          typedRole: portfolioCopy[initialLanguage].typingRoles[0],
+          workspaceScenario: 'review',
+          workFilter: 'all',
+          projectLinks,
+          projectGroups,
+          jobDates,
+          workspaceTags: ['TypeScript', 'Vue', 'PostgreSQL', 'Docker', 'WSL'],
+          year: new Date().getFullYear()
+        };
+      },
+      computed: {
+        copy() {
+          return portfolioCopy[this.language];
+        },
+        numberFormat() {
+          return new Intl.NumberFormat(this.language === 'ru' ? 'ru-RU' : 'en-US');
+        },
+        statSeries() {
+          return Object.fromEntries(Object.keys(portfolioCopy.en.stats).map(key => {
+            const pointsFor = snapshots => snapshots
+              .filter(snapshot => Number.isFinite(snapshot.values[key]))
+              .map(snapshot => ({ date: snapshot.date, value: snapshot.values[key] }));
+            const monthly = pointsFor(this.metricHistory.monthly);
+            const useMonths = monthly.length > 1;
+            return [key, { monthly: useMonths, points: useMonths ? monthly : pointsFor(this.metricHistory.recent) }];
+          }));
+        },
+        visibleWorkProjects() {
+          return Object.keys(this.projectGroups.work).filter(key =>
+            this.workFilter === 'all' || this.projectGroups.work[key] === this.workFilter
+          );
+        }
+      },
       mounted(){
         document.documentElement.className=this.theme;
-        fetch('assets/github-stats.json').then(r=>r.ok?r.json():{}).then(data=>{this.stats=data}).catch(()=>{});
+        this.applyLocale();
+        this.setupMotion();
+        fetch('assets/github-stats-history.json')
+          .then(response => response.ok ? response.json() : null)
+          .then(data => { if (data) this.metricHistory = data; })
+          .catch(() => {});
         const io=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.12});
         document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
-        if(location.hash){requestAnimationFrame(()=>document.querySelector(location.hash)?.scrollIntoView({block:'start'}))}
-        const updateProgress=()=>{
-          const anchors=[
-            document.querySelector('#top'),
-            document.querySelector('#about'),
-            document.querySelector('#skills'),
-            document.querySelector('#evidence'),
-            document.querySelector('#work'),
-            document.querySelector('#path'),
-            document.querySelector('#contact')
-          ].filter(Boolean).map(el=>el.offsetTop);
-          const navElement=document.querySelector('.nav');
-          const navBottom=(navElement?.getBoundingClientRect().bottom||76);
-          const y=window.scrollY+navBottom;
-          let value=0;
-          let index=0;
-          for(let i=0;i<anchors.length;i++){
-            if(y>=anchors[i]) index=i;
-          }
-          value=index/(anchors.length-1)*100;
-          const atBottom=window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-2;
-          if(atBottom) value=100;
-          document.getElementById('scrollProgress').style.width=value+'%';
-          const nav=document.querySelector('.nav');
-          if(!nav)return;
-          const fill=nav.getBoundingClientRect().width*value/100;
-          nav.querySelectorAll('.brand,.links a,.icon-btn,.mobile-menu summary').forEach(el=>{
-            const rect=el.getBoundingClientRect();
-            const navLeft=nav.getBoundingClientRect().left;
-            el.classList.toggle('progress-dark',rect.left-navLeft+rect.width/2<=fill);
+        if(location.hash){requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'}))}
+        const nav = document.querySelector('.nav');
+        const bar = document.getElementById('scrollProgress');
+        const brand = nav.querySelector('.brand');
+        const links = [...nav.querySelectorAll('.links a')];
+        const sections = links.slice(0, -1).map(link => document.getElementById(link.hash.slice(1)));
+        const colorTargets = nav.querySelectorAll('.brand,.links a,.icon-btn,.mobile-menu summary');
+        const root = document.documentElement;
+        let frame;
+
+        const updateProgress = () => {
+          frame = undefined;
+          const { left, width } = bar.parentElement.getBoundingClientRect();
+          const desktop = links[0].getClientRects().length > 0;
+          const y = window.scrollY;
+          const documentEnd = root.scrollHeight;
+          const maxScroll = documentEnd - root.clientHeight;
+          const aboutTop = sections[0].getBoundingClientRect().top + y;
+          const sectionEnds = sections.map(section => section.getBoundingClientRect().bottom + y);
+          const stops = [0, aboutTop, ...sectionEnds, documentEnd];
+          const fills = [0, ...[brand, ...links.slice(0, -1)].map((link, index) =>
+            desktop ? link.getBoundingClientRect().right - left : width * (index + 1) / (stops.length - 1)
+          ), width];
+
+          // Fit the end of the page into the remaining scroll distance when the viewport is tall.
+          const tailStart = stops[Math.max(0, stops.findIndex(stop => stop >= maxScroll) - 1)];
+          const scrollTop = Math.max(0, Math.min(y, maxScroll));
+          const position = scrollTop > tailStart
+            ? tailStart + (documentEnd - tailStart) * ((scrollTop - tailStart) / (maxScroll - tailStart))
+            : scrollTop;
+          const end = stops.findIndex((stop, index) => index > 0 && stop >= position);
+          const fraction = (position - stops[end - 1]) / (stops[end] - stops[end - 1]);
+          const fill = fills[end - 1] + fraction * (fills[end] - fills[end - 1]);
+          bar.style.width = fill + 'px';
+          bar.classList.toggle('is-complete', maxScroll > 0 && maxScroll - scrollTop < 1);
+          colorTargets.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            el.classList.toggle('progress-dark', rect.left + rect.width / 2 <= left + fill);
           });
         };
-        updateProgress();
-        addEventListener('scroll',updateProgress,{passive:true});
-        addEventListener('resize',updateProgress);
+        const scheduleProgress = () => {
+          frame ??= requestAnimationFrame(updateProgress);
+        };
+        scheduleProgress();
+        addEventListener('scroll', scheduleProgress, { passive: true });
+        addEventListener('resize', scheduleProgress);
+        const layoutObserver = new ResizeObserver(scheduleProgress);
+        layoutObserver.observe(document.querySelector('main'));
+        layoutObserver.observe(nav.querySelector('.links'));
       },
       methods:{
+        setupMotion() {
+          const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+          let typingVisible = false;
+          let typingTimer;
+
+          const restartTyping = () => {
+            clearTimeout(typingTimer);
+            const phrases = this.copy.typingRoles;
+            this.typedRole = phrases[0];
+            if (reducedMotion.matches || !typingVisible) return;
+
+            let index = 0;
+            let length = phrases[0].length;
+            let deleting = true;
+            const nextCharacter = () => {
+              if (deleting && length === 0) {
+                index = (index + 1) % phrases.length;
+                deleting = false;
+              }
+              const phrase = phrases[index];
+              length += deleting ? -1 : 1;
+              this.typedRole = phrase.slice(0, length);
+              let delay = deleting ? 30 : 55;
+              if (length === 0) {
+                delay = 150;
+              } else if (!deleting && length === phrase.length) {
+                deleting = true;
+                delay = 1750;
+              }
+              typingTimer = setTimeout(nextCharacter, delay);
+            };
+            typingTimer = setTimeout(nextCharacter, 1750);
+          };
+
+          new IntersectionObserver(([entry]) => {
+            typingVisible = entry.isIntersecting;
+            restartTyping();
+          }).observe(this.$refs.typingLine);
+          this.$watch('language', restartTyping);
+
+          let statsLoaded = false;
+          let statsVisible = false;
+          let countersStarted = false;
+          const startCounters = () => {
+            if (!statsLoaded || countersStarted || (!statsVisible && !reducedMotion.matches)) return;
+            countersStarted = true;
+            if (reducedMotion.matches) {
+              this.statsProgress = 1;
+              return;
+            }
+            let start;
+            const countFrame = (now) => {
+              start ??= now;
+              const elapsed = reducedMotion.matches ? 1 : Math.min(1, (now - start) / 1100);
+              this.statsProgress = 1 - (1 - elapsed) ** 3;
+              if (elapsed < 1) requestAnimationFrame(countFrame);
+            };
+            requestAnimationFrame(countFrame);
+          };
+
+          const statsObserver = new IntersectionObserver(([entry]) => {
+            if (!entry.isIntersecting) return;
+            statsVisible = true;
+            statsObserver.disconnect();
+            startCounters();
+          });
+          statsObserver.observe(this.$refs.stats);
+          fetch('assets/github-stats.json')
+            .then(response => response.ok ? response.json() : {})
+            .then(data => {
+              this.stats = data;
+              statsLoaded = true;
+              startCounters();
+            })
+            .catch(() => {});
+          reducedMotion.addEventListener('change', () => {
+            restartTyping();
+            startCounters();
+          });
+        },
+        formatStat(key) {
+          const value = this.stats[key];
+          if (value == null) return '—';
+          if (this.statsProgress === 1) return this.numberFormat.format(value);
+          const precision = Number.isInteger(value) ? 1 : 100;
+          return this.numberFormat.format(Math.round(value * this.statsProgress * precision) / precision);
+        },
+        applyLocale() {
+          document.documentElement.lang = this.language;
+          document.title = this.copy.title;
+          document.querySelector('meta[name="description"]').content = this.copy.description;
+        },
+        toggleLanguage() {
+          this.language = this.language === 'en' ? 'ru' : 'en';
+          localStorage.setItem('portfolio-language', this.language);
+          const url = new URL(location.href);
+          url.searchParams.set('lang', this.language);
+          history.replaceState(history.state, '', url);
+          this.applyLocale();
+        },
         toggleTheme(){
           this.theme=this.theme==='dark'?'light':'dark';
           localStorage.setItem('theme',this.theme);

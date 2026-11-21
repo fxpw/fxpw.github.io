@@ -1,0 +1,390 @@
+{
+  "monthly": [
+    {
+      "date": "2025-12-31",
+      "source": "https://github.com/fxpw/fxpw/blob/77ba103c34720e49faa97d3d42ee9efb7436574e/github-metrics.svg",
+      "values": {
+        "totalRepos": 291,
+        "followers": 69,
+        "following": 29,
+        "commits": 7525,
+        "pullRequestsOpened": 700,
+        "pullRequestsReviewed": 1395,
+        "issues": 3088,
+        "issueComments": 1980,
+        "currentStreak": 3,
+        "longestStreak": 76,
+        "highestCommitsPerDay": 208,
+        "averageCommitsPerDay": 12.38
+      }
+    },
+    {
+      "date": "2026-01-31",
+      "source": "https://github.com/fxpw/fxpw/blob/9358be6336df700e7dbe3ffe7691ff25ecb92247/github-metrics.svg",
+      "values": {
+        "totalRepos": 297,
+        "followers": 69,
+        "following": 29,
+        "commits": 8031,
+        "pullRequestsOpened": 818,
+        "pullRequestsReviewed": 1448,
+        "issues": 3155,
+        "issueComments": 2201,
+        "currentStreak": 29,
+        "longestStreak": 76,
+        "highestCommitsPerDay": 93,
+        "averageCommitsPerDay": 12.59
+      }
+    },
+    {
+      "date": "2026-02-28",
+      "source": "https://github.com/fxpw/fxpw/blob/124d9b01991b6a97474e17161f4ad30904ec3247/github-metrics.svg",
+      "values": {
+        "totalRepos": 297,
+        "followers": 70,
+        "following": 29,
+        "commits": 8179,
+        "pullRequestsOpened": 889,
+        "pullRequestsReviewed": 1503,
+        "issues": 3215,
+        "issueComments": 2496,
+        "currentStreak": 26,
+        "longestStreak": 76,
+        "highestCommitsPerDay": 93,
+        "averageCommitsPerDay": 12.25
+      }
+    },
+    {
+      "date": "2026-03-31",
+      "source": "https://github.com/fxpw/fxpw/blob/126bc2fb0cc28786a1c1c9ad33a7fd346f640e99/github-metrics.svg",
+      "values": {
+        "totalRepos": 296,
+        "followers": 71,
+        "following": 27,
+        "commits": 8584,
+        "pullRequestsOpened": 1038,
+        "pullRequestsReviewed": 1562,
+        "issues": 3272,
+        "issueComments": 2813,
+        "currentStreak": 15,
+        "longestStreak": 76,
+        "highestCommitsPerDay": 93,
+        "averageCommitsPerDay": 13.24
+      }
+    },
+    {
+      "date": "2026-04-30",
+      "source": "https://github.com/fxpw/fxpw/blob/46d9af88b9d200d347140b30e29c17b08680a28e/github-metrics.svg",
+      "values": {
+        "totalRepos": 299,
+        "followers": 71,
+        "following": 27,
+        "commits": 9657,
+        "pullRequestsOpened": 1283,
+        "pullRequestsReviewed": 1639,
+        "issues": 3358,
+        "issueComments": 2985,
+        "currentStreak": 87,
+        "longestStreak": 87,
+        "highestCommitsPerDay": 107,
+        "averageCommitsPerDay": 16.27
+      }
+    },
+    {
+      "date": "2026-05-31",
+      "source": "https://github.com/fxpw/fxpw/blob/08c949152fc4cb4048950708ad137983368f09d7/github-metrics.svg",
+      "values": {
+        "totalRepos": 299,
+        "followers": 71,
+        "following": 27,
+        "commits": 10469,
+        "pullRequestsOpened": 1631,
+        "pullRequestsReviewed": 1709,
+        "issues": 3487,
+        "issueComments": 3125,
+        "currentStreak": 118,
+        "longestStreak": 118,
+        "highestCommitsPerDay": 121,
+        "averageCommitsPerDay": 18.91
+      }
+    },
+    {
+      "date": "2026-06-30",
+      "source": "https://github.com/fxpw/fxpw/blob/30f4e53c3d2dcea0de1be8e76a4288b71af0915d/github-metrics.svg",
+      "values": {
+        "totalRepos": 302,
+        "followers": 71,
+        "following": 27,
+        "commits": 11150,
+        "pullRequestsOpened": 1831,
+        "pullRequestsReviewed": 1851,
+        "issues": 3636,
+        "issueComments": 3345,
+        "currentStreak": 148,
+        "longestStreak": 148,
+        "highestCommitsPerDay": 140,
+        "averageCommitsPerDay": 21.04
+      }
+    },
+    {
+      "date": "2026-07-31",
+      "source": "https://github.com/fxpw/fxpw/blob/56f9d4f0e084790d042e73de9c825b0dfcde95a4/github-metrics.svg",
+      "values": {
+        "totalRepos": 302,
+        "followers": 71,
+        "following": 27,
+        "commits": 12055,
+        "pullRequestsOpened": 2053,
+        "pullRequestsReviewed": 2011,
+        "issues": 3871,
+        "issueComments": 3735,
+        "currentStreak": 179,
+        "longestStreak": 179,
+        "highestCommitsPerDay": 141,
+        "averageCommitsPerDay": 24.12
+      }
+    },
+    {
+      "date": "2026-08-31",
+      "source": "https://github.com/fxpw/fxpw/blob/d4d4641faeaaef2cd4f5878979cabb0f2abaffcc/github-metrics.svg",
+      "values": {
+        "totalRepos": 302,
+        "followers": 73,
+        "following": 27,
+        "commits": 12841,
+        "pullRequestsOpened": 2304,
+        "pullRequestsReviewed": 2154,
+        "issues": 4012,
+        "issueComments": 4068,
+        "currentStreak": 210,
+        "longestStreak": 210,
+        "highestCommitsPerDay": 192,
+        "averageCommitsPerDay": 27.16
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "source": "https://github.com/fxpw/fxpw/blob/c43c096ce0bb91dbf113bbb21811e14add4084a5/github-metrics.svg",
+      "values": {
+        "totalRepos": 303,
+        "followers": 72,
+        "following": 27,
+        "commits": 13153,
+        "pullRequestsOpened": 2414,
+        "pullRequestsReviewed": 2201,
+        "issues": 4089,
+        "issueComments": 4700,
+        "currentStreak": 5,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 192,
+        "averageCommitsPerDay": 28.18
+      }
+    },
+    {
+      "date": "2026-10-31",
+      "source": "https://github.com/fxpw/fxpw/blob/3bdc82054abe8983437f9c5ee4108e1d8ffaffa3/github-metrics.svg",
+      "values": {
+        "totalRepos": 305,
+        "followers": 74,
+        "following": 30,
+        "commits": 15187,
+        "pullRequestsOpened": 2781,
+        "pullRequestsReviewed": 2382,
+        "issues": 4360,
+        "issueComments": 6855,
+        "currentStreak": 36,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 35.52
+      }
+    },
+    {
+      "date": "2026-11-22",
+      "source": "https://github.com/fxpw/fxpw/blob/83970725de6c4bdf70d323151f1b18e2b8d708f9/github-metrics.svg",
+      "values": {
+        "totalRepos": 308,
+        "totalStars": 131,
+        "forks": 190,
+        "releases": 321,
+        "watchers": 145,
+        "followers": 76,
+        "following": 30,
+        "commits": 16097,
+        "pullRequestsOpened": 3001,
+        "pullRequestsReviewed": 2480,
+        "issues": 4527,
+        "issueComments": 8119,
+        "currentStreak": 57,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 38.94
+      }
+    }
+  ],
+  "recent": [
+    {
+      "date": "2026-11-15",
+      "source": "https://github.com/fxpw/fxpw/blob/91adbfcc3c76415574df7189c6d87429ae8d1ecb/github-metrics.svg",
+      "values": {
+        "totalRepos": 307,
+        "followers": 75,
+        "following": 30,
+        "commits": 15761,
+        "pullRequestsOpened": 2909,
+        "pullRequestsReviewed": 2441,
+        "issues": 4468,
+        "issueComments": 7684,
+        "currentStreak": 51,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 37.59
+      }
+    },
+    {
+      "date": "2026-11-16",
+      "source": "https://github.com/fxpw/fxpw/blob/a762c89cc4a3fa1f999721891270d69136b70d7a/github-metrics.svg",
+      "values": {
+        "totalRepos": 307,
+        "followers": 76,
+        "following": 30,
+        "commits": 15795,
+        "pullRequestsOpened": 2918,
+        "pullRequestsReviewed": 2442,
+        "issues": 4477,
+        "issueComments": 7713,
+        "currentStreak": 52,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 38.16
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "source": "https://github.com/fxpw/fxpw/blob/9ee2f6455e5b3b688e3aab9045a52e91ce7d3213/github-metrics.svg",
+      "values": {
+        "totalRepos": 307,
+        "followers": 76,
+        "following": 30,
+        "commits": 15839,
+        "pullRequestsOpened": 2922,
+        "pullRequestsReviewed": 2449,
+        "issues": 4479,
+        "issueComments": 7785,
+        "currentStreak": 53,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 38.23
+      }
+    },
+    {
+      "date": "2026-11-18",
+      "source": "https://github.com/fxpw/fxpw/blob/75be9b915958836c01a7d7b34655bb11537ef688/github-metrics.svg",
+      "values": {
+        "totalRepos": 308,
+        "totalStars": 130,
+        "forks": 189,
+        "releases": 321,
+        "watchers": 145,
+        "followers": 76,
+        "following": 30,
+        "commits": 15953,
+        "pullRequestsOpened": 2937,
+        "pullRequestsReviewed": 2451,
+        "issues": 4488,
+        "issueComments": 7868,
+        "currentStreak": 54,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 38.5
+      }
+    },
+    {
+      "date": "2026-11-19",
+      "source": "https://github.com/fxpw/fxpw/blob/552c7311c5685ea6276be2536316d07df105d37c/github-metrics.svg",
+      "values": {
+        "totalRepos": 308,
+        "totalStars": 131,
+        "forks": 190,
+        "releases": 321,
+        "watchers": 145,
+        "followers": 76,
+        "following": 30,
+        "commits": 16034,
+        "pullRequestsOpened": 2965,
+        "pullRequestsReviewed": 2464,
+        "issues": 4500,
+        "issueComments": 8014,
+        "currentStreak": 55,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 38.77
+      }
+    },
+    {
+      "date": "2026-11-20",
+      "source": "https://github.com/fxpw/fxpw/blob/29cf846dff42084b8becd33f3684620c38c2adb7/github-metrics.svg",
+      "values": {
+        "totalRepos": 308,
+        "totalStars": 131,
+        "forks": 190,
+        "releases": 321,
+        "watchers": 145,
+        "followers": 76,
+        "following": 30,
+        "commits": 16079,
+        "pullRequestsOpened": 2988,
+        "pullRequestsReviewed": 2476,
+        "issues": 4519,
+        "issueComments": 8099,
+        "currentStreak": 56,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 38.93
+      }
+    },
+    {
+      "date": "2026-11-21",
+      "source": "https://github.com/fxpw/fxpw/blob/f2f8b2e125fac2d5b81cfd4fc1b0bb8df7e07eb5/github-metrics.svg",
+      "values": {
+        "totalRepos": 308,
+        "totalStars": 131,
+        "forks": 190,
+        "releases": 321,
+        "watchers": 145,
+        "followers": 76,
+        "following": 30,
+        "commits": 16097,
+        "pullRequestsOpened": 3001,
+        "pullRequestsReviewed": 2480,
+        "issues": 4527,
+        "issueComments": 8118,
+        "currentStreak": 57,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 38.94
+      }
+    },
+    {
+      "date": "2026-11-22",
+      "source": "https://github.com/fxpw/fxpw/blob/83970725de6c4bdf70d323151f1b18e2b8d708f9/github-metrics.svg",
+      "values": {
+        "totalRepos": 308,
+        "totalStars": 131,
+        "forks": 190,
+        "releases": 321,
+        "watchers": 145,
+        "followers": 76,
+        "following": 30,
+        "commits": 16097,
+        "pullRequestsOpened": 3001,
+        "pullRequestsReviewed": 2480,
+        "issues": 4527,
+        "issueComments": 8119,
+        "currentStreak": 57,
+        "longestStreak": 220,
+        "highestCommitsPerDay": 254,
+        "averageCommitsPerDay": 38.94
+      }
+    }
+  ]
+}

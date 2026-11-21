@@ -1,10 +1,13 @@
 name: Update GitHub portfolio stats
 on:
   schedule:
-    - cron: "17 3 * * 1"
+    - cron: "17 3 * * *"
   workflow_dispatch:
 permissions:
   contents: write
+  pages: write
+concurrency:
+  group: update-github-stats-${{ github.ref }}
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -13,12 +16,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node scripts/update-github-stats.mjs
-        env:
-          PORTFOLIO_GITHUB_TOKEN: ${{ secrets.PORTFOLIO_GITHUB_TOKEN }}
+      - name: Read published profile Metrics
+        run: node scripts/update-github-stats.mjs
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/github-stats.json
+          git add assets/github-stats.json assets/github-stats-history.json
           git diff --cached --quiet || git commit -m "chore: update GitHub portfolio stats"
           git push
+      - name: Request a GitHub Pages build
+        if: github.ref_name == github.event.repository.default_branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
