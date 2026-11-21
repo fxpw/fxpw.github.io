@@ -2,7 +2,6 @@
   "publicRepos": 227,
   "totalRepos": 227,
   "followers": 76,
-  "following": 33,
   "totalStars": 130,
   "forks": 189,
   "watchers": 145,
@@ -23,12 +22,13 @@
     "Vue"
   ],
   "activeRepos": 13,
-  "commits": 2380,
-  "pullRequests": 110,
-  "issues": 27,
+  "commits": 16097,
+  "pullRequestsOpened": 3001,
+  "pullRequestsReviewed": 2480,
+  "issues": 4527,
   "yearlyContributions": 0,
   "currentStreak": 0,
   "longestStreak": 0,
   "averageCommitsPerDay": 1.2,
-  "updatedAt": "2026-11-21T20:51:49.108Z"
+  "updatedAt": "2026-11-21T20:57:27.902Z"
 }

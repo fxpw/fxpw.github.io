@@ -159,11 +159,11 @@
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-5 10-5 10 5 10 5-3.5 5-10 5S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg><strong>{{ stats.watchers || '145+' }}</strong></div><span>watchers</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16v12H4zM8 7V4h8v3M8 12h8M8 16h5"/></svg><strong>{{ stats.releases || '321+' }}</strong></div><span>releases</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 11a4 4 0 108 0 4 4 0 00-8 0zM3 21a7 7 0 0114 0M17 8a3 3 0 010 6M19 21a5 5 0 00-3-4"/></svg><strong>{{ stats.followers || '76+' }}</strong></div><span>followers</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><strong>{{ stats.pullRequests || '110+' }}</strong></div><span>pull requests</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.5"/></svg><strong>{{ stats.issues || '27+' }}</strong></div><span>issues authored</span></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><strong>{{ stats.pullRequestsOpened || '3001+' }}</strong></div><span>pull requests opened</span></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M8 12l2.5 2.5L16 9"/></svg><strong>{{ stats.pullRequestsReviewed || '2480+' }}</strong></div><span>pull requests reviewed</span></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.5"/></svg><strong>{{ stats.issues || '4528+' }}</strong></div><span>issues opened</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L12 2z"/></svg><strong>{{ stats.currentStreak || '—' }}</strong></div><span>current streak</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 18l4-4 3 2 5-7 4 3M4 21h16"/></svg><strong>{{ stats.longestStreak || '—' }}</strong></div><span>longest streak</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 11a4 4 0 108 0 4 4 0 00-8 0zM3 21a7 7 0 0118 0M17 8a3 3 0 010 6"/></svg><strong>{{ stats.following || '33+' }}</strong></div><span>following</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M5 8l7-5 7 5M7 21h10"/></svg><strong>{{ stats.averageCommitsPerDay || '—' }}</strong></div><span>commits / day</span></div>
         </div>
       </div>
@@ -279,7 +279,9 @@
             document.querySelector('#path'),
             document.querySelector('#contact')
           ].filter(Boolean).map(el=>el.offsetTop);
-          const y=window.scrollY+Math.ceil(document.querySelector('.nav')?.getBoundingClientRect().height||58);
+          const nav=document.querySelector('.nav');
+          const navBottom=(nav?.getBoundingClientRect().bottom||76);
+          const y=window.scrollY+navBottom;
           let value=0;
           let index=0;
           for(let i=0;i<anchors.length;i++){

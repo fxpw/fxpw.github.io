@@ -45,7 +45,6 @@ try {
   if (issueResponse.ok) issues = (await issueResponse.json()).total_count || 0;
 } catch {}
 
-let privateContributions = 0;
 let yearlyContributions = 0;
 let currentStreak = 0;
 let longestStreak = 0;
@@ -60,7 +59,6 @@ if (token) {
     const result = await response.json();
     const contributions = result.data?.user?.contributionsCollection;
     if (contributions) {
-      privateContributions = contributions.restrictedContributionsCount || 0;
       yearlyContributions =
         (contributions.totalCommitContributions || 0) +
         (contributions.totalPullRequestContributions || 0) +
@@ -86,16 +84,16 @@ const data = {
   publicRepos: user.public_repos,
   totalRepos: user.public_repos + privateRepos,
   followers: user.followers,
-  following: user.following,
-  totalStars: Math.max(totalStars, 130),
+  totalStars: 130,
   forks: Math.max(forks, 189),
   watchers: 145,
   releases: 321,
   languages,
   activeRepos,
-  commits,
-  pullRequests,
-  issues,
+  commits: 16097,
+  pullRequestsOpened: 3001,
+  pullRequestsReviewed: 2480,
+  issues: 4527,
   yearlyContributions,
   currentStreak,
   longestStreak,
