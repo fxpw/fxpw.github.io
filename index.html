@@ -59,6 +59,7 @@
     .about-card { padding:28px } .about-card p { color:var(--muted); margin:0 0 16px }
     .facts { display:grid; grid-template-columns:1fr 1fr; gap:10px }
     .fact { padding:18px; border-radius:18px; background:var(--surface2) } .fact strong { display:block; font-size:1.1rem } .fact span { color:var(--muted); font-size:.85rem }
+    .fact-head { display:flex; align-items:center; gap:10px } .fact-head img { width:28px; height:28px; object-fit:contain }
     .skills { display:grid; grid-template-columns:repeat(4,1fr); gap:10px }
     .skill { min-height:140px; display:flex; flex-direction:column; justify-content:flex-end; padding:20px; transition:.25s transform,.25s border-color }
     .skill-icons { display:flex; gap:8px; align-items:center; margin:0 0 auto } .skill-icons img { width:34px; height:34px; object-fit:contain }
@@ -78,6 +79,7 @@
     .contact { text-align:center; border:1px solid var(--line); border-radius:32px; padding:70px 24px; background:linear-gradient(135deg,var(--surface),color-mix(in srgb,var(--accent) 8%,var(--surface))); backdrop-filter:blur(18px) }
     .contact h2 { margin:10px auto 18px; max-width:720px; font-size:clamp(2.6rem,7vw,5.8rem); line-height:.95; letter-spacing:-.07em }
     .contact-links { display:flex; justify-content:center; gap:8px; flex-wrap:wrap }
+    .contact .button img { width:18px; height:18px; object-fit:contain }
     footer { display:flex; justify-content:space-between; align-items:center; padding:34px 0 40px; color:var(--muted); font-size:.82rem }
     [data-reveal] { opacity:0; transform:translateY(18px); transition:.7s ease } [data-reveal].visible { opacity:1; transform:none }
     @media(max-width:900px) { .hero-grid,.about-grid { grid-template-columns:1fr } .portrait { width:min(330px,85%); margin-top:20px } .stats { grid-template-columns:repeat(2,1fr) } .stat { border-bottom:1px solid var(--line) } .skills { grid-template-columns:repeat(2,1fr) } .project,.project.featured { grid-column:span 12 } .links a { display:none } .mobile-menu { display:block } }
@@ -122,7 +124,7 @@
       <section id="about"><div class="wrap">
         <div class="section-head"><div><div class="kicker">01 · About</div><h2>Useful software.<br>Cleanly engineered.</h2></div><p>I like systems that explain themselves, scale without drama and solve a real problem. From product UI to servers, databases and AI tooling.</p></div>
         <div class="about-grid">
-          <div class="glass about-card facts"><div class="fact"><strong>5+ years</strong><span>software engineering</span></div><div class="fact"><strong>Full stack</strong><span>product to infrastructure</span></div><div class="fact"><strong>AI native</strong><span>tooling and integration</span></div><div class="fact"><strong>Manga</strong><span>reading & collecting</span></div></div>
+          <div class="glass about-card facts"><div class="fact"><div class="fact-head"><img src="assets/icons/dev-experience.svg" alt=""><strong>5+ years</strong></div><span>software engineering</span></div><div class="fact"><div class="fact-head"><img src="assets/icons/projects-icon.svg" alt=""><strong>Full stack</strong></div><span>product to infrastructure</span></div><div class="fact"><div class="fact-head"><img src="assets/icons/nodejs-original-wordmark.svg" alt=""><strong>AI native</strong></div><span>tooling and integration</span></div><div class="fact"><div class="fact-head"><img src="assets/icons/manga.svg" alt=""><strong>Manga</strong></div><span>reading & collecting</span></div></div>
           <div class="glass about-card"><p>I work where engineering, operations and product meet. My strongest range is backend systems, DevOps, desktop tooling, data-heavy products and automation.</p><p>I also use AI as part of the engineering workflow: MCP integrations, LLM backends, code agents, prompt systems and local/private model infrastructure.</p></div>
         </div>
       </div></section>
@@ -164,7 +166,15 @@
           <article class="glass job"><time>2020 — 2023</time><div><h3>Freelance · Software Engineer</h3><p>Delivered custom software for small and medium businesses, spanning web, automation and infrastructure.</p></div></article>
         </div>
       </div></section>
-      <section id="contact"><div class="wrap"><div class="contact" data-reveal><div class="kicker">05 · Contact</div><h2>Let's build something useful.</h2><div class="contact-links"><a class="button primary" href="https://t.me/fx_pw" target="_blank" rel="noreferrer">Telegram ↗</a><a class="button" href="https://github.com/fxpw" target="_blank" rel="noreferrer">GitHub ↗</a><a class="button" href="https://discord.com/fxpw" target="_blank" rel="noreferrer">Discord ↗</a></div></div></div></section>
+      <section id="contact"><div class="wrap"><div class="contact" data-reveal>
+        <div class="kicker">05 · Contact</div>
+        <h2>Let's build something useful.</h2>
+        <div class="contact-links">
+          <a class="button primary" href="https://t.me/fx_pw" target="_blank" rel="noreferrer"><img src="assets/icons/telegram.svg" alt="">Telegram</a>
+          <a class="button" href="https://github.com/fxpw" target="_blank" rel="noreferrer"><img src="assets/icons/github.png" alt="">GitHub</a>
+          <a class="button" href="https://discord.com/fxpw" target="_blank" rel="noreferrer"><img src="assets/icons/dis.svg" alt="">Discord</a>
+        </div>
+      </div></div></section>
     </main>
     <footer class="wrap"><span>© {{ year }} Anton Koshel</span><a href="#top">Back to top ↑</a></footer>
   </div>
