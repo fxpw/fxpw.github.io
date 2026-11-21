@@ -1,527 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<!-- some code borrowed from https://github.com/LakshanRukantha/lakshanrukantha.github.io  -->
-
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="title" content="Anton Koshel" />
-	<meta name="language" content="English" />
-
-	<meta name="author" content="fxpw" />
-
-	<meta property="og:title" content="fxpw" />
-	<meta property="og:description" content="fxpw portfolio" />
-	<!-- <meta property="og:site_name" content="fxpw" /> -->
-	<meta property="og:url" content="https://fxpw.github.io/assets/images/ava3.jpg" />
-	<meta property="og:type" content="article" />
-	<meta property="og:image" content="assets/images/ava3.jpg" />
-	<!-- <meta property="og:image:width" content="1000" /> -->
-	<!-- <meta property="og:image:height" content="500" /> -->
-
-
-	<title>fxpw</title>
-
-
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon.ico" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-		crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
-	<!-- <link rel="stylesheet" href="https://use.typekit.net/rrg4put.css" /> -->
-	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="css/projects.css" />
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Anton Koshel — Software Engineer</title><meta name="description" content="Full Stack Developer, DevOps and AI-native software engineer.">
+  <meta name="theme-color" content="#0d0f12"><script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    :root { --bg:#e9e7df; --ink:#17191c; --muted:#686b70; --paper:#f7f5ee; --line:#b9b7ae; --signal:#ff5b35; --sage:#bdcfb5 }
+    :root.dark { --bg:#0d0f12; --ink:#ecebe5; --muted:#9c9e9f; --paper:#15181c; --line:#34383d; --signal:#ff7352; --sage:#7d9475 }
+    * { box-sizing:border-box } html { scroll-behavior:smooth } body { margin:0; background:var(--bg); color:var(--ink); font-family:Arial,Helvetica,sans-serif; transition:.25s }
+    body:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.07; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E") }
+    a { color:inherit } button { font:inherit }
+    .rail { position:fixed; z-index:20; left:24px; top:24px; bottom:24px; width:72px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; border:1px solid var(--line); background:color-mix(in srgb,var(--paper) 92%,transparent); backdrop-filter:blur(12px) }
+    .mark { width:100%; height:72px; display:grid; place-items:center; border-bottom:1px solid var(--line); font-family:Georgia,serif; font-size:1.45rem } .railnav { display:flex; flex-direction:column; align-items:center; gap:22px }
+    .railnav a { writing-mode:vertical-rl; transform:rotate(180deg); font-size:.68rem; text-transform:uppercase; letter-spacing:.16em; color:var(--muted); text-decoration:none }
+    .theme { width:38px; height:38px; margin:16px; border:1px solid var(--line); border-radius:50%; color:var(--ink); background:transparent; cursor:pointer }
+    .wrap { width:min(1180px,calc(100% - 150px)); margin-left:128px }
+    section { min-height:90vh; border-bottom:1px solid var(--line); display:flex; align-items:center; padding:90px 0 }
+    .hero { min-height:100vh } .hero-grid { display:grid; grid-template-columns:1fr 380px; align-items:end; gap:50px }
+    .index { display:inline-grid; width:38px; height:38px; place-items:center; border:1px solid var(--line); border-radius:50%; font-size:.72rem }
+    h1 { margin:25px 0 18px; max-width:900px; font-family:Georgia,"Times New Roman",serif; font-size:clamp(5rem,11vw,10.5rem); line-height:.78; letter-spacing:-.075em; font-weight:400 }
+    h1 em { color:var(--signal); font-style:italic }
+    .lede { max-width:660px; margin:36px 0 28px; font-size:clamp(1.1rem,2vw,1.55rem); line-height:1.35 }
+    .portrait { position:relative; border:1px solid var(--line); padding:10px } .portrait:before { content:"Anton Koshel / 2026"; position:absolute; left:-58px; bottom:72px; transform:rotate(-90deg); font-size:.62rem; text-transform:uppercase; letter-spacing:.18em }
+    .portrait img { display:block; width:100%; aspect-ratio:4/5; object-fit:cover; filter:saturate(.76) contrast(1.05) }
+    .actions { display:flex; gap:8px; flex-wrap:wrap } .button { display:inline-flex; align-items:center; min-height:46px; padding:0 15px; border:1px solid var(--line); text-decoration:none; font-size:.82rem; text-transform:uppercase; letter-spacing:.08em }
+    .button.filled { background:var(--ink); color:var(--bg); border-color:var(--ink) }
+    .stats { display:grid; grid-template-columns:repeat(5,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); margin-top:54px }
+    .stat { min-height:112px; padding:18px; border-right:1px solid var(--line); border-bottom:1px solid var(--line) } .stat strong { display:block; font-family:Georgia,serif; font-size:2.2rem; font-weight:400 } .stat span { color:var(--muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.09em }
+    .section-title { display:grid; grid-template-columns:180px 1fr; align-items:start; width:100%; margin-bottom:50px }
+    .section-title h2 { margin:-10px 0 0; font-family:Georgia,serif; font-size:clamp(3.3rem,7vw,6.8rem); line-height:.9; letter-spacing:-.06em; font-weight:400 }
+    .section-title h2 em { color:var(--signal); font-style:italic }
+    .copy-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px } .copy-grid p { margin-top:0; font-size:1.18rem; line-height:1.62 }
+    .facts { display:grid; grid-template-columns:repeat(2,1fr); border-left:1px solid var(--line); border-top:1px solid var(--line) }
+    .fact { min-height:140px; padding:18px; border-right:1px solid var(--line); border-bottom:1px solid var(--line) } .fact b { display:block; font-family:Georgia,serif; font-size:1.55rem } .fact span { color:var(--muted); font-size:.78rem }
+    .skills { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); width:100% }
+    .skill { min-height:210px; padding:22px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); display:flex; flex-direction:column; justify-content:space-between }
+    .skill.no { font-family:Georgia,serif; color:var(--muted); font-size:.8rem } .skill h3 { margin:0; font-family:Georgia,serif; font-size:1.55rem; font-weight:400 } .skill p { margin:0; color:var(--muted); line-height:1.5 }
+    .projects { display:grid; grid-template-columns:1.25fr .75fr; width:100%; border:1px solid var(--line) } .project-main { min-height:520px; padding:28px; border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:space-between; background:var(--sage) }
+    .project-main h3,.project h3 { margin:14px 0 8px; font-family:Georgia,serif; font-size:2.4rem; line-height:1; font-weight:400 } .project-main p,.project p { max-width:560px; color:var(--muted) }
+    .project-side { display:grid } .project { min-height:260px; padding:22px; border-bottom:1px solid var(--line); text-decoration:none } .project:last-child { border-bottom:0 } .project h3 { font-size:1.55rem }
+    .mini-projects { display:grid; grid-template-columns:repeat(3,1fr); margin-top:12px; border-left:1px solid var(--line); border-top:1px solid var(--line) }
+    .mini-projects a { min-height:210px; padding:18px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); text-decoration:none } .mini-projects h3 { font-family:Georgia,serif; font-size:1.2rem } .mini-projects p { color:var(--muted); font-size:.86rem }
+    .job { display:grid; grid-template-columns:180px 280px 1fr; gap:20px; padding:26px 0; border-top:1px solid var(--line) } .job time { color:var(--signal); font-size:.82rem } .job h3 { margin:0; font-family:Georgia,serif; font-size:1.45rem; font-weight:400 } .job p { margin:0; color:var(--muted) }
+    .contact { width:100%; min-height:430px; display:flex; flex-direction:column; justify-content:space-between } .contact h2 { max-width:900px; margin:20px 0; font-family:Georgia,serif; font-size:clamp(4rem,9vw,8.5rem); line-height:.82; letter-spacing:-.065em; font-weight:400 } .contact h2 em { color:var(--signal); font-style:italic }
+    .contact-links { display:flex; gap:8px } footer { height:100px; display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:.78rem }
+    [data-reveal] { opacity:0; transform:translateY(14px); transition:.7s } [data-reveal].visible { opacity:1; transform:none }
+    @media(max-width:900px) { .rail { left:10px; top:10px; bottom:auto; width:calc(100% - 20px); height:56px; flex-direction:row } .mark { width:56px; height:56px; border-bottom:0; border-right:1px solid var(--line) } .railnav { flex-direction:row; margin-right:auto; padding-left:12px } .railnav a { writing-mode:horizontal-tb; transform:none } .railnav a:nth-last-child(-n+2) { display:none } .theme { margin:8px } .wrap { width:calc(100% - 40px); margin-left:20px } section { min-height:auto } .hero-grid,.copy-grid,.projects { grid-template-columns:1fr } .portrait { max-width:320px; margin:40px auto 0 } .stats { grid-template-columns:repeat(2,1fr) } .section-title { grid-template-columns:70px 1fr } .skills { grid-template-columns:1fr 1fr } .project-main { border-right:0; border-bottom:1px solid var(--line) } .mini-projects { grid-template-columns:1fr } .job { grid-template-columns:100px 1fr } .job p { grid-column:2 } }
+    @media(max-width:560px) { .railnav a:nth-child(n+3) { display:none } h1 { font-size:4.8rem } .hero-grid { gap:20px } .section-title h2 { font-size:3.5rem } .stats { grid-template-columns:1fr 1fr } .skills { grid-template-columns:1fr } .job { grid-template-columns:1fr } .job p { grid-column:auto } .contact h2 { font-size:4.2rem } }
+  </style>
 </head>
-
-<body id="to-top" class="noselect">
-	<nav class="navbar navbar-expand-lg fixed-top">
-		<div class="container">
-			<a class="nav-brand noselect" href="index.html">fxpw</a>
-			<button class="navbar-toggler" type="button">
-				<div data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
-					aria-expanded="false" aria-label="Toggle navigation" id="nav-icon">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-			</button>
-			<div class="collapse navbar-collapse collapse-bg" id="navbarNav">
-				<ul class="navbar-links">
-					<li class="nav-card-item">
-						<a class="nav-link js-scroll-trigger noselect" onclick="toAbout()">About me</a>
-					</li>
-					<li class="nav-card-item">
-						<a class="nav-link js-scroll-trigger noselect" onclick="toSkills()">Skills</a>
-					</li>
-					<li class="nav-card-item">
-						<a class="nav-link js-scroll-trigger noselect" onclick="toProjects()">Projects</a>
-					</li>
-					<li class="nav-card-item">
-						<a class="nav-link js-scroll-trigger noselect" onclick="toLifePath()">Life path</a>
-					</li>
-					<li class="nav-card-item">
-						<a class="nav-link js-scroll-trigger noselect" onclick="toContact()">Contact</a>
-					</li>
-					<li class="nav-card-item">
-						<a class="nav-link2 noselect" href="assets/files/resume.pdf" download aria-label="Resume"
-							style="display:inline-block; padding:12px 20px; background:#68d372; color:#fff; border-radius:6px; text-decoration:none; margin-left:10px;">
-							Resume
-						</a>
-					</li>
-				</ul>
-				</a>
-			</div>
-		</div>
-		<div class="scroll-progress-track">
-			<div id="progress-bar" class="scroll-progress-thumb"></div>
-		</div>
-	</nav>
-	<div class="loader">
-		<h6 class="loading-text"></h6>
-	</div>
-	<div class="page-content">
-		<main>
-			<!-- Intro -->
-			<section id="intro">
-				<div class="container" data-aos="fade-down" data-aos-duration="1000">
-					<div class="text">
-						<h1>
-							Hi, I am<br />
-							<span class="green my-name">Anton,</span>
-							<br />
-						</h1>
-						<div class="typing">
-							<h2><span class="typing-text noselect"></span></h2>
-						</div>
-						<p>
-							Welcome to my portfolio!
-							My name is <span id="intro-p">Anton Koshel</span>, and I am a seasoned <span
-								id="intro-p">Full Stack Developer</span>
-							with a fervent interest in developing any kind of software. My technical <span
-								id="intro-p">expertise</span> combined
-							with my <span id="intro-p">сreative</span> approach gives me the confidence to <span
-								id="intro-p">provide tailor-made solutions</span> for a
-							<span id="intro-p">wide range of project</span> needs.
-						<p>
-							<span id="intro-p">Es prudens, si possis stuporem quandolibet simulare</span>
-						</p>
-						</p>
-					</div>
-					<div class="img">
-						<img onContextMenu="return false;" loading="lazy" class="intro-img" src="assets/images/ava3.jpg"
-							alt="intro-image" />
-					</div>
-				</div>
-			</section>
-			<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg"
-				class="transition duration-300 ease-in-out delay-150">
-				<path
-					d="M 0,400 C 0,400 0,200 0,200 C 62.43333333333334,168.3025641025641 124.86666666666667,136.6051282051282 219,129 C 313.1333333333333,121.3948717948718 438.9666666666666,137.88205128205126 522,143 C 605.0333333333334,148.11794871794874 645.2666666666668,141.86666666666665 718,158 C 790.7333333333332,174.13333333333335 895.9666666666667,212.65128205128207 974,232 C 1052.0333333333333,251.34871794871793 1102.8666666666666,251.52820512820512 1176,243 C 1249.1333333333334,234.47179487179488 1344.5666666666666,217.23589743589744 1440,200 C 1440,200 1440,400 1440,400 Z"
-					stroke="none" stroke-width="0" fill="#222222ff"
-					class="transition-all duration-300 ease-in-out delay-150 path-0" transform="rotate(-180 720 200)">
-				</path>
-			</svg>
-			<!-- About me -->
-			<section id="about">
-				<div class="about container" data-aos="fade-up" data-aos-duration="1000">
-					<h6 class="section-title">About Me</h6>
-					<div class="about-wrapper">
-						<div class="left">
-							<div>
-								<img loading="lazy" src="assets/icons/dev-experience.svg" alt="dev-experience-icon" />
-								<h2>
-									<span class="green counter">05</span>
-									<span class="green">+ Years</span>
-									Coding Experience
-								</h2>
-							</div>
-							<div>
-								<img loading="lazy" src="assets/icons/projects-icon.svg" alt="projects-icon" />
-								<h2>
-									Working on <span class="green counter">03</span><span class="green">+
-										Projects</span> now
-								</h2>
-							</div>
-							<div>
-								<img loading="lazy" src="assets/icons/manga.svg" alt="manga-icon" />
-								<h2>
-									Like to <span class="green">read</span> and <span class="green">collect</span> manga
-									in my free time
-								</h2>
-							</div>
-						</div>
-						<div class="right">
-							<h2>
-								What are <span class="green">my</span> strongest <span class="green">sides</span> and
-								<span class="green">skills?</span>
-							</h2>
-							<p>
-								Among my foremost attributes as a full-stack developer is the capacity for critical
-								thinking and problem-solving.
-								I am adept at dissecting complicated projects into smaller, manageable segments and
-								devising creative solutions for emerging issues.
-								My organizational skills and attention to detail enable me to fulfill tasks timely and
-								according to the highest standards.
-							</p>
-							<p>
-								In my role as a full-stack developer, I possess proficiency in various programming
-								languages and frameworks, including HTML, CSS, JavaScript, and Python. My experience
-								extends to working with renowned technologies such as Node.js. Also I work with C++,
-								Python, utilize Docker and Redis in a Linux environment, leveraging Bash for scripting.
-							</p>
-							<p>
-								Furthermore, I boast strong communication skills, allowing me to collaborate effectively
-								with both clients and team members to grasp their requirements and convert them into
-								functional specifications. Overall, I am confident in my capability to deliver superior
-								web solutions that meet and surpass the expectations of my clients.
-							</p>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- My bio -->
-			<!-- <section id="bio">
-				<div class="container" data-aos="fade-up" data-aos-duration="1000">
-					<h6 class="section-title">My Bio</h6>
-					<div class="bio">
-						<div class="img">
-							<img loading="lazy" class="bio-img" src="assets/icons/photo-bio.webp" alt="photo-bio" />
-						</div>
-						<div class="text">
-							<h2>
-							</h2>
-							<p>
-							</p>
-							<p>
-							</p>
-							<p>
-							</p>
-						</div>
-					</div>
-				</div>
-			</section> -->
-			<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg"
-				class="transition duration-300 ease-in-out delay-150">
-				<path
-					d="M 0,500 C 0,500 0,250 0,250 C 53.5,275.4589743589744 107,300.9179487179487 202,290 C 297,279.0820512820513 433.5,231.7871794871795 519,219 C 604.5,206.2128205128205 638.9999999999999,227.93333333333334 710,242 C 781.0000000000001,256.06666666666666 888.5,262.4794871794872 968,272 C 1047.5,281.5205128205128 1099,294.14871794871794 1173,291 C 1247,287.85128205128206 1343.5,268.925641025641 1440,250 C 1440,250 1440,500 1440,500 Z"
-					stroke="none" stroke-width="0" fill="#222222ff"
-					class="transition-all duration-300 ease-in-out delay-150 path-0"></path>
-			</svg>
-			<!-- Skills -->
-			<section id="skills" class="text-center">
-				<div class="container" data-aos="fade-up" data-aos-duration="1000">
-					<h6 class="section-title">Skills</h6>
-					<h3 class="skill-label">Programming Skills</h3>
-					<div class="skill-cards-container">
-						<div class="div-card">
-							<div class="div-card-item cpp"></div>
-							<span>C++</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item lua"></div>
-							<span>Lua</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item python"></div>
-							<span>Python</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item php"></div>
-							<span>PHP</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item typescript"></div>
-							<span>TypeScript</span>
-						</div>
-					</div>
-					<div class="skill-cards-container">
-						<div class="div-card">
-							<div class="div-card-item js"></div>
-							<span>JavaScript</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item html"></div>
-							<span>HTML</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item css"></div>
-							<span>CSS</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item vite"></div>
-							<span>Vite</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item bs"></div>
-							<span>Bootstrap</span>
-						</div>
-
-					</div>
-					<h3 class="skill-label">Tools & Other Skills</h3>
-					<div class="skill-cards-container">
-						<div class="div-card">
-							<div class="div-card-item git"></div>
-							<span>Git</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item bash"></div>
-							<span>Bash</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item nginx"></div>
-							<span>Nginx</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item devops"></div>
-							<span>DevOps</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item docker"></div>
-							<span>Docker</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item k8s"></div>
-							<span>k8s</span>
-						</div>
-					</div>
-					<h3 class="skill-label">DB Tools</h3>
-					<div class="skill-cards-container">
-						<div class="div-card">
-							<div class="div-card-item mysql"></div>
-							<span>MySQL</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item pgsql"></div>
-							<span>PostgreSQL</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item mariadb"></div>
-							<span>MariaDB</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item memcached"></div>
-							<span>Memcached</span>
-						</div>
-						<div class="div-card">
-							<div class="div-card-item redis"></div>
-							<span>Redis</span>
-						</div>
-					</div>
-				</div>
-			</section>
-			<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg"
-				class="transition duration-300 ease-in-out delay-150">
-				<path
-					d="M 0,400 C 0,400 0,200 0,200 C 75.28461538461539,167.45897435897436 150.56923076923078,134.91794871794872 239,134 C 327.4307692307692,133.08205128205128 429.0076923076923,163.7871794871795 513,172 C 596.9923076923077,180.2128205128205 663.4000000000001,165.93333333333337 741,183 C 818.5999999999999,200.06666666666663 907.3923076923077,248.47948717948714 977,269 C 1046.6076923076923,289.52051282051286 1097.0307692307692,282.14871794871794 1171,266 C 1244.9692307692308,249.85128205128206 1342.4846153846154,224.92564102564103 1440,200 C 1440,200 1440,400 1440,400 Z"
-					stroke="none" stroke-width="0" fill="#222222ff"
-					class="transition-all duration-300 ease-in-out delay-150 path-0" transform="rotate(-180 720 200)">
-				</path>
-			</svg>
-			<!-- Projects -->
-			<section id="projects">
-				<div class="container" data-aos="fade-up" data-aos-duration="1000">
-					<h6 class="section-title">Projects</h6>
-					<div class="projects-section">
-						<div class="project-data-wrapper">
-							<div class="project-data"></div>
-							<div class="navigation"></div>
-							<div class="arrow-left">
-								<i class="fa fa-chevron-left"></i>
-							</div>
-							<div class="arrow-right">
-								<i class="fa fa-chevron-right"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg"
-				class="transition duration-300 ease-in-out delay-150">
-				<path
-					d="M 0,400 C 0,400 0,200 0,200 C 63.06410256410257,245.6948717948718 126.12820512820514,291.3897435897436 219,265 C 311.87179487179486,238.6102564102564 434.551282051282,140.1358974358974 510,145 C 585.448717948718,149.8641025641026 613.6666666666666,258.0666666666667 679,266 C 744.3333333333334,273.9333333333333 846.7820512820515,181.59743589743587 939,167 C 1031.2179487179485,152.40256410256413 1113.2051282051282,215.54358974358976 1195,234 C 1276.7948717948718,252.45641025641024 1358.397435897436,226.2282051282051 1440,200 C 1440,200 1440,400 1440,400 Z"
-					stroke="none" stroke-width="0" fill="#222222ff"
-					class="transition-all duration-300 ease-in-out delay-150 path-0"></path>
-			</svg>
-			<!-- Special Milestones -->
-			<section id="milestones" class="text-center">
-				<div class="container" data-aos="fade-up" data-aos-duration="1000">
-					<h6 class="section-title">Samurai non habet metas, solum iter</h6>
-					<div class="milestones">
-						<div class="timeline">
-							<ul>
-								<li>
-									<div class="timeline-content">
-										<h3 class="date">2025-now</h3>
-										<h2 class="title education">
-											Full Stack Developer, Teamlead, CTO?
-										</h2>
-										<h3 class="sub-title company">Sherpa RPA</h3>
-										<p class="description">
-											Since joining Sherpa RPA, I’ve further refined my expertise in full-stack development while expanding my leadership capabilities to drive scalable solutions. Building on my experience at Creative Paradise, I’ve integrated advanced DevOps practices and AI-driven automation tools to optimize our workflow, resulting in a 40% reduction in deployment time. Leading a cross-functional team of 6, I prioritized mentorship and knowledge sharing, which elevated our collective problem-solving skills and fostered a culture of innovation. My focus on agile methodologies and continuous improvement has enabled us to deliver mission-critical projects ahead of schedule, while also exploring new technologies to stay ahead in the competitive RPA landscape. This role has solidified my ability to balance technical excellence with strategic vision, ensuring our team remains adaptable and forward-thinking.  
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="timeline-content">
-										<h3 class="date">2023-2025</h3>
-										<h2 class="title education">
-											Full Stack Developer, Teamlead
-										</h2>
-										<h3 class="sub-title company">Creative Paradise</h3>
-										<p class="description">
-											Stepping into this role meant transcending my previous responsibilities and embracing the challenges of
-											leadership in a dynamic and ever-evolving tech environment. 
-											My journey to this position was a blend of my experiences in corporate settings and freelancing, 
-											each contributing a unique set of skills and perspectives that I used to lead my team effectively.
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="timeline-content">
-										<h3 class="date">2020-2023</h3>
-										<h2 class="title education">Freelance</h2>
-										<h3 class="sub-title company">WWW</h3>
-										<p class="description">
-											My freelance work primarily focused on software development, with a
-											particular emphasis on developing custom solutions for small and
-											medium-sized enterprises. I relished the opportunity to work across
-											various industries, which not only broadened my expertise but also enriched
-											my understanding of how technology can solve real-world problems in
-											different business contexts.
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="timeline-content">
-										<h3 class="date">2017-2022</h3>
-										<h2 class="title education">University</h2>
-										<h3 class="sub-title school">GSU Named After Franciska Skorina</h3>
-										<p class="description">
-											Studied at the university in the department of chemistry, gained knowledge
-											about many different subjects.
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="timeline-content">
-										<h3 class="date">2006-2017</h3>
-										<h2 class="title education">
-											School education
-										</h2>
-										<h3 class="sub-title school">School : №2 El'sk</h3>
-										<p class="description">
-											My educational journey kicked off at the local School No. 2, where I
-											distinguished myself as a diligent student. Math and physics
-											particularly captivated me, allowing me not just to participate but also to
-											achieve victories in district and regional olympiads. My fascination with
-											computer technology started around the age of 14 when my father gifted me my
-											first personal computer. That event completely transformed my vision of the
-											future.
-										</p>
-									</div>
-								</li>
-								<li class="timeline-content">
-									<div class="timeline-content">
-										<h3 class="date">28th February, 2000</h3>
-										<h2 class="title birth">Birth</h2>
-										<h3 class="sub-title globe">Born in Mozyr, Belarus</h3>
-										<p class="description">
-											Lucky man.
-										</p>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</section>
-			<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg"
-				class="transition duration-300 ease-in-out delay-150">
-				<path
-					d="M 0,400 C 0,400 0,200 0,200 C 75.28461538461539,167.45897435897436 150.56923076923078,134.91794871794872 239,134 C 327.4307692307692,133.08205128205128 429.0076923076923,163.7871794871795 513,172 C 596.9923076923077,180.2128205128205 663.4000000000001,165.93333333333337 741,183 C 818.5999999999999,200.06666666666663 907.3923076923077,248.47948717948714 977,269 C 1046.6076923076923,289.52051282051286 1097.0307692307692,282.14871794871794 1171,266 C 1244.9692307692308,249.85128205128206 1342.4846153846154,224.92564102564103 1440,200 C 1440,200 1440,400 1440,400 Z"
-					stroke="none" stroke-width="0" fill="#222222ff"
-					class="transition-all duration-300 ease-in-out delay-150 path-0" transform="rotate(-180 720 200)">
-				</path>
-			</svg>
-			<!-- Contact -->
-			<section id="contact" class="text-center">
-				<div class="container" data-aos="fade-up" data-aos-duration="1000">
-					<h6 class="section-title">Contact</h6>
-					<h2 class="contact-title">
-						Call or write <span class="green">anytime</span>
-						<section id="contacts" class="text-center">
-							<div class="container" data-aos="fade-up" data-aos-duration="1000">
-								<div class="contact-cards-container">
-									<div class="div-card">
-										<a class="div-card-item discord" href="https://discord.com/fxpw"></a>
-										<span href="https://discord.com/fxpw">Discord</span>
-									</div>
-									<div class="div-card">
-										<a class="div-card-item github" href="https://github.com/fxpw"></a>
-										<span href="https://github.com/fxpw">GitHub</span>
-									</div>
-									<div class="div-card">
-										<a class="div-card-item telegram" href="https://t.me/fx_pw"></a>
-										<span href="https://t.me/fx_pw">Telegram</span>
-									</div>
-								</div>
-							</div>
-						</section>
-					</h2>
-					<div class="row">
-
-						<!-- <div class="img-bg col-md-5 col-lg-4">
-							<div class="contact-img">
-								<lottie-player src="./img/contact-image-data.json" mode="bounce"
-									background="transparent" speed="0.8" loop autoplay></lottie-player>
-							</div>
-						</div> -->
-					</div>
-				</div>
-			</section>
-		</main>
-		<a title="Go to top." href="#to-top">
-			<div class="to-top"><i class="fa-solid fa-angles-up"></i></div>
-		</a>
-		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-		<script src="js/tilt.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"
-			target="_blank"></script>
-		<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-		<script src="https://kit.fontawesome.com/0a73ff5289.js" crossorigin="anonymous"></script>
-		<script src="https://code.jquery.com/jquery-3.6.0.js"
-			integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-		<script src="./js/counter.min.js"></script>
-		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-		<script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
-		<script src="js/main.js"></script>
-		<script>
-			AOS.init();
-		</script>
-		<!-- Snow Flakes in December -->
-		<!-- <script src="https://unpkg.com/magic-snowflakes/dist/snowflakes.min.js"></script>
-		<script>
-			const d = new Date();
-			let month = d.getMonth();
-			if (month == 3) {
-				var snowflakes = new Snowflakes({ count: 20 });
-			} else {
-				null;
-			}
-		</script> -->
-	</div>
+<body>
+  <div id="app">
+    <aside class="rail"><a class="mark" href="#top" aria-label="Home">AK</a><nav class="railnav"><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#path">Path</a></nav><button class="theme" @click="toggle" :aria-label="theme">{{ theme === 'dark' ? '☀' : '◐' }}</button></aside>
+    <main id="top" class="wrap">
+      <section class="hero"><div class="hero-grid">
+        <div data-reveal><span class="index">01</span><h1>Hi, I'm <em>Anton.</em></h1><p class="lede">Full Stack Developer. I build dependable software across product, backend, infrastructure and AI.</p><div class="actions"><a class="button filled" href="#work">Selected work ↘</a><a class="button" href="https://github.com/fxpw" target="_blank">GitHub ↗</a><a class="button" href="assets/files/resume.pdf" download>Résumé ↓</a></div></div>
+        <figure class="portrait" data-reveal><img src="assets/images/ava3.jpg" alt="Anton Koshel"></figure>
+      </div></section>
+      <div class="stats" data-reveal><div class="stat"><strong>{{stats.publicRepos||227}}</strong><span>Repositories</span></div><div class="stat"><strong>{{stats.followers||76}}</strong><span>Followers</span></div><div class="stat"><strong>{{stats.totalStars||'—'}}</strong><span>Stars</span></div><div class="stat"><strong>{{stats.languages?.length||'—'}}</strong><span>Languages</span></div><div class="stat"><strong>{{stats.updatedLabel||'weekly'}}</strong><span>Auto update</span></div></div>
+      <section id="about"><div><div class="section-title" data-reveal><span class="index">02</span><h2>About the <em>work.</em></h2></div><div class="copy-grid"><div data-reveal><p>I work from the product down to the machine. Backend architecture, internal tools, databases, infrastructure and AI workflows are all part of the same engineering problem.</p><p>I prefer explicit systems, maintainable ownership and automation that reduces uncertainty instead of adding another layer.</p></div><div class="facts" data-reveal><div class="fact"><b>5+ years</b><span>software engineering</span></div><div class="fact"><b>Full stack</b><span>UI to infrastructure</span></div><div class="fact"><b>AI-native</b><span>LLMs and MCP</span></div><div class="fact"><b>Off-screen</b><span>manga collection</span></div></div></div></div></section>
+      <section id="skills"><div style="width:100%"><div class="section-title" data-reveal><span class="index">03</span><h2>Capabilities, <em>not logos.</em></h2></div><div class="skills" data-reveal>
+        <article class="skill"><span class="no">A / 01</span><h3>AI engineering</h3><p>LLMs · MCP · RAG · agents · local models · prompt systems</p></article>
+        <article class="skill"><span class="no">B / 02</span><h3>Product engineering</h3><p>Vue · TypeScript · JavaScript · HTML · CSS</p></article>
+        <article class="skill"><span class="no">C / 03</span><h3>Backend systems</h3><p>Python · PHP · Node.js · C++ · Lua</p></article>
+        <article class="skill"><span class="no">D / 04</span><h3>Infrastructure</h3><p>Linux · Docker · Kubernetes · Nginx · Bash · CI/CD</p></article>
+        <article class="skill"><span class="no">E / 05</span><h3>Data</h3><p>PostgreSQL · MySQL · MariaDB · Redis · Memcached</p></article>
+        <article class="skill"><span class="no">F / 06</span><h3>Delivery</h3><p>Git · GitHub Actions · DevOps · automation · observability</p></article>
+      </div></div></section>
+      <section id="work"><div style="width:100%"><div class="section-title" data-reveal><span class="index">04</span><h2>Selected <em>work.</em></h2></div><div class="projects" data-reveal>
+        <article class="project-main"><div><span class="no">CURRENT / SHERPA RPA</span><h3>Sherpa RPA ecosystem</h3><p>Enterprise automation platform spanning AI Server, PD Server and Orchestrator. Full-stack product delivery, infrastructure and AI-assisted workflows.</p></div><a class="button filled" href="#contact">Discuss the stack →</a></article>
+        <div class="project-side"><article class="project"><span>PRODUCT / 01</span><h3>AI Server</h3><p>LLM serving and integration layer.</p></article><article class="project"><span>PRODUCT / 02</span><h3>PD Server</h3><p>Data and processing services.</p></article></div>
+      </div><div class="mini-projects" data-reveal><a href="https://github.com/fxpw/awesome-sirus-launcher" target="_blank"><span>OPEN SOURCE</span><h3>Awesome Sirus Launcher</h3><p>Desktop launcher and addon updater.</p></a><a href="https://github.com/fxpw/vscode-fxpw-ai-chat" target="_blank"><span>OPEN SOURCE</span><h3>VS Code AI Chat</h3><p>AI chat extension with proxy support.</p></a><a href="https://github.com/fxpw/llm_docker_vscode" target="_blank"><span>OPEN SOURCE</span><h3>LLM Docker VS Code</h3><p>Local development environment for LLM work.</p></a></div></div></section>
+      <section id="path"><div style="width:100%"><div class="section-title" data-reveal><span class="index">05</span><h2>The <em>path.</em></h2></div><div data-reveal><article class="job"><time>2025 — NOW</time><h3>Sherpa RPA</h3><p>Full Stack Developer / Team Lead. Building automation products and technical infrastructure across AI, backend and orchestration.</p></article><article class="job"><time>2023 — 2025</time><h3>Creative Paradise</h3><p>Full Stack Developer / Team Lead. Led delivery and technical ownership in a fast-moving product team.</p></article><article class="job"><time>2020 — 2023</time><h3>Freelance</h3><p>Custom software for small and medium businesses across web, automation and infrastructure.</p></article></div></div></section>
+      <section id="contact"><div class="contact" data-reveal><div><span class="index">06</span><h2>Make it <em>real.</em></h2></div><div class="contact-links"><a class="button filled" href="https://t.me/fx_pw" target="_blank">Telegram ↗</a><a class="button" href="https://github.com/fxpw" target="_blank">GitHub ↗</a><a class="button" href="https://discord.com/fxpw" target="_blank">Discord ↗</a></div></div></section>
+      <footer><span>© {{year}} Anton Koshel</span><a href="#top">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <script>
+    const {createApp}=Vue;createApp({data(){return{theme:localStorage.getItem('theme')||'dark',stats:{},year:new Date().getFullYear()}},mounted(){document.documentElement.className=this.theme;fetch('assets/github-stats.json').then(r=>r.ok?r.json():{}).then(d=>{this.stats=d;this.stats.updatedLabel=d.updatedAt?new Date(d.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'}):'weekly'}).catch(()=>{});const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.12});document.querySelectorAll('[data-reveal]').forEach(e=>io.observe(e))},methods:{toggle(){this.theme=this.theme==='dark'?'light':'dark';localStorage.setItem('theme',this.theme);document.documentElement.className=this.theme}}}).mount('#app');
+  </script>
 </body>
-
 </html>
