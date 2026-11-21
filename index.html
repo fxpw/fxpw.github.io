@@ -40,10 +40,10 @@
     .nav .links a { color:#fff }
     .nav .icon-btn,
     .nav .mobile-menu summary { color:#fff }
-    .scroll-progress { position:absolute; z-index:1; left:0; bottom:0; width:100%; height:3px; pointer-events:none; background:transparent }
-    .scroll-progress i { display:block; position:relative; width:0; height:100%; background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent) 42%,transparent)); box-shadow:none; transition:width .08s linear }
-    .scroll-progress i:before { content:""; position:absolute; inset:0 0 auto 0; height:1px; background:color-mix(in srgb,var(--accent) 70%,transparent); box-shadow:none }
-    .scroll-progress i:after { content:""; position:absolute; right:-1px; top:0; width:1px; height:100%; background:var(--accent); box-shadow:none }
+    .scroll-progress { position:absolute; z-index:1; inset:0 auto 0 0; width:100%; height:100%; pointer-events:none; background:transparent }
+    .scroll-progress i { display:block; position:relative; width:0; height:100%; background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent) 42%,transparent)); box-shadow:8px 0 24px color-mix(in srgb,var(--accent) 26%,transparent); transition:width .08s linear }
+    .scroll-progress i:before { content:""; position:absolute; inset:0 0 auto 0; height:2px; background:var(--accent); box-shadow:0 0 10px var(--accent) }
+    .scroll-progress i:after { content:""; position:absolute; right:0; top:0; width:2px; height:100%; background:var(--accent); box-shadow:0 0 16px var(--accent) }
     .brand { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; font-weight:760; letter-spacing:-.02em }
     .brand i { color:var(--accent); font-style:normal }
     .links { display:flex; gap:4px; align-items:center }
@@ -162,7 +162,7 @@
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><strong>{{ stats.pullRequests || '110+' }}</strong></div><span>pull requests</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.5"/></svg><strong>{{ stats.issues || '27+' }}</strong></div><span>issues authored</span></div>
           <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 9h8M8 13h5"/></svg><strong>{{ stats.privateRepos ?? '—' }}</strong></div><span>private repos</span></div>
-          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M8 12h8"/></svg><strong>{{ stats.privateContributions || '—' }}</strong></div><span>private contributions</span></div>
+          <div class="stat"><div class="stat-head"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 11a4 4 0 108 0 4 4 0 00-8 0zM3 21a7 7 0 0118 0M17 8a3 3 0 010 6"/></svg><strong>{{ stats.following || '33+' }}</strong></div><span>following</span></div>
         </div>
       </div>
       <section id="about"><div class="wrap">
